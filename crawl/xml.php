@@ -1,30 +1,32 @@
 <?php
 
   
-     header("Content-type: text/html; charset=utf-8");  
-     $xml=new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><ProductInfo />'); 
+     // header("Content-type: text/html; charset=utf-8");  
+     // $xml=new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"); 
  
  
-         
-	$item=$xml->addchild("item"); 
-	$ID = $item->addAttribute("ID",'1');
-	$Name = $item->addchild("Name",'2'); 
-	$Link = $item->addchild("Link",'3');
-	$Diameter = $item->addchild("Diameter",'4');
-	$Weight = $item->addchild("Weight",'5');
-	$Manufacture = $item->addchild("Manufacture",'6'); 
-	$Price = $item->addchild("Price",'7'); 
-	$ImgLink = $item->addchild("ImgLink",'8'); 
-	$Color = $item->addchild("Color");
-	$Black = $Color->addchild("Black",'b');
-	$BlackAttribu = $Black->addAttribute("url",'www');
-	$Red = $Color->addchild("Red",'r');
-	$Green = $Color->addchild("Green",'g');
-         
-    
-     echo $xml->asXml(); 
-     $xml->asXml("xml.xml"); 
-	 
+        // $startUrl = $xml->addAttribute('startUrl','startUrl');
+        // $company = $xml->addAttribute('company','company');
+		// $product=$xml->addchild("product");
+        // $id = $product->addAttribute("id",'index');
+        // $materialType = $product->addchild("materialType",'materialType');
+        // $brand = $product->addchild("brand",'brand');
+		// $producer = $product->addchild("producer",'producer');
+		// $price = $product->addchild("price",'price');
+        // $diameter = $product->addchild("diameter",'diameter');
+        // $color = $product->addchild("color",'color');
+        // $weight = $product->addchild("weight",'weight');
+        // $packForm = $product->addchild("packForm",'packForm');
+        // $weightInKg = $product->addchild("weightInKg",'weightInKg');
+        // $imageUrl = $product->addchild("imageUrl",'imageUrl');
+        // $url = $product->addchild("url",'url');
+		
+		  
 
-         
+    
+     // echo $xml->asXml(); 
+     // $xml->asXml("xml.xml"); 
+	 
+echo date('YmdHi', time());
+
 ?>

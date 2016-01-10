@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ProductInfo><item ID="1"><Name>2</Name><Link>3</Link><Diameter>4</Diameter><Weight>5</Weight><Manufacture>6</Manufacture><Price>7</Price><ImgLink>8</ImgLink><Color><Black url="www">b</Black><Red>r</Red><Green>g</Green></Color></item></ProductInfo>
+<products startUrl="startUrl" company="company"><product id="index"><materialType>materialType</materialType><brand>brand</brand><producer>producer</producer><price>price</price><diameter>diameter</diameter><color>color</color><weight>weight</weight><packForm>packForm</packForm><weightInKg>weightInKg</weightInKg><imageUrl>imageUrl</imageUrl><url>url</url></product></products>

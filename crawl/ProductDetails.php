@@ -1,33 +1,51 @@
 <?php
     include 'simple_html_dom.php';
-	$url = "https://www.lulzbot.com/store/filament/alloy-910";
+	$url = "https://www.lulzbot.com/store/filament/abs-5lb-reel";
     $html = file_get_html($url);
 
     $widthWeightContent = $html->find('.filament-width-weight');
-	echo '直径和重量 : '.$widthWeightContent[0]->plaintext;
+	$widthWeightValue = $widthWeightContent[0]->plaintext;
+	$arr = explode(' , ',$widthWeightValue);
 	
-	$colorName = array();
-	$colorImgUrl = array();
+	$widths = preg_replace("/\s/","", $arr[0]);
+	echo $widths.'<br/>';
+	$weigths = explode(' ',$arr[1]);
+	echo $weigths[0].'--'.$weigths[1].'<br/>';
+	
+	$weightValue = preg_replace("/[a-zA-Z]+/","", $weigths[0]);
+	$weightUnit = preg_replace('/[0-9_.-]/', '', $weigths[0]);
+	switch($weightUnit){
+		case "g":
+			$weight = $weightValue / 1000;
+			echo $weight.'kg'.'<br/>'; 
+			break;
+		case "kg":
+			echo $weightValue.'kg'.'<br/>'; 
+			break;
+		case "lb":
+			$weight = $weightValue * 0.45;
+			echo $weight.'kg'.'<br/>'; 
+			break;
+	}
+	
+	$colorNames = array();
+	$colorImgUrls = array();
 	$colorContent = $html->find('.filament-colors');
 	if(count($colorContent) != 0){
 		$colorLi = $colorContent[0]->find('li');
 		$i = 0;
 		foreach($colorLi as $color){
-			$colorText = $color->find('span')[0]->plaintext;
-			$colorName[$i] = $colorText;
+			$colorText = $color->find('img')[0];
+			$colorName = $colorText->alt;
+			$colorImgUrl = 'https://www.lulzbot.com'.$colorText->src;
+			
+			$colorNames[$i] = $colorName;
+			$colorImgUrls[$i] = $colorImgUrl;
 			$i++;
-		}
-		
-		$colorImgContent = $html->find('.gallery-item');
-		if(count($colorImgContent) != 0){
-			for($j = 1; $j < count($colorImgContent); $j++){
-				$colorImg = $colorImgContent[$j]->find('a')[0]->href;
-				 echo '颜色图片地址: '.$colorImg.'<br/>';
-				$colorImgUrl[$j-1] = $colorImg;
-			}
+			echo $colorName.'--'.$colorImgUrl.'<br/>';
 		}
 	}
-	echo $colorName[0].'---'.count($colorName).'<br/>';
+	 echo $colorNames[0].'---'.count($colorNames).'<br/>';
 	
-	echo $colorImgUrl[0].'---'.count($colorImgUrl).'<br/>';
+	 echo $colorImgUrls[0].'---'.count($colorImgUrls).'<br/>';
 ?>

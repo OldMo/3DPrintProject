@@ -8,31 +8,21 @@
 		$urls = $it->ColorImgUrl->url;
 		foreach($urls as $u){
 			if(strcasecmp($u,'null') != 0){
-				//echo $u.'<br/>';
+				echo $u.'<br/>';
 				download_image($u,'old','C:\xampp\htdocs\crawl');
 			}
 		}
 		
 	}
+		
 	
-	
-	
-	function download_image($url, $fileName = '', $dirName, $fileType = array('jpg', 'gif', 'png'), $type = 0)
+	function download_image($url, $fileName = '', $dirName, $type = 0)
 	{
 		if ($url == '')
 		{
 			return false;
 		}
-		// 获取文件原文件名
-		$defaultFileName = strtolower(basename($url));
-		// 获取文件类型
-		$suffix = strtolower(substr(strrchr($url, '.'), 1));
-		if (!in_array($suffix, $fileType))
-		{
-			return false;
-		}
-		// 设置保存后的文件名
-		$fileName = $fileName == '' ? time() . rand(0, 9) . '.' . $suffix : $defaultFileName;
+		
 		// 获取远程文件资源方式选择
 		if ($type)
 		{
@@ -51,6 +41,7 @@
 			readfile($url);
 			$file = ob_get_contents();
 			ob_end_clean();
+			echo 'd';
 		}
 		// 设置文件保存路径
 		$dirName = $dirName . '/' . date('Ym', time());
