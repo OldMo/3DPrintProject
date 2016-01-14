@@ -27,6 +27,35 @@
      // echo $xml->asXml(); 
      // $xml->asXml("xml.xml"); 
 	 
-echo date('YmdHi', time());
+//echo date('YmdHi', time());
 
+// $typeString = 'Laywoo-D3 (LayWood) ';
+// if (strstr($typeString, '(') && strstr($typeString,')')) {
+
+    // $brandText = preg_replace('/\((.*)\)/', '', $typeString);
+    // preg_match_all("/(?:\()(.*)(?:\))/i",$typeString, $result);
+    // $type = $result[1][0];
+    // $brand = trim($brandText);
+
+    // return array('type'=>$type,'brand'=>$brand);
+    // echo $brand.':'.$type;
+
+// } else {
+    // $value = str_replace(' ','',$typeString);
+    // echo $value;
+    // return array('type'=>$value,'brand'=>$value);;
+// }
+
+	if (file_exists('test.xml'))
+	{
+	  $xml = simplexml_load_file('test.xml');
+	  var_dump($xml);
+	}
+
+	else
+	{
+	  exit('Error.');
+	}
+	
 ?>
+

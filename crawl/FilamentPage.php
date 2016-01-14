@@ -2,6 +2,7 @@
 
 	set_time_limit(0);
     include 'simple_html_dom.php';
+	include 'ProductDetails.php';
 	$company = 'lulzbot';
     $startUrl = "https://www.lulzbot.com/store/filament";
     
@@ -26,9 +27,12 @@
         $picAnchor = $hrefStr[0]->find('img');
         $imageUrl = $picAnchor[0]->src;
          
-        //获取材料名
-        $materialType = $hrefStr[1]->plaintext;
-         
+        //获取材料类型和品牌
+        $materialTypeText = $hrefStr[1]->plaintext;
+		$typeAndBrand = getBrandAndType($materialTypeText);
+		$materialType = $typeAndBrand['type'];
+		$brand = $typeAndBrand['brand'];
+
         //获取材料地址
         $shortLink = $hrefStr[1]->href;
         $url  = 'https://www.lulzbot.com'.$shortLink;
@@ -38,8 +42,9 @@
          
         //获取价格
         $price = $element->find('.field-items')[0]->plaintext;
-         
-        $productDetailInformation = getProductDetails($url);
+
+		$productDetail = new ProductDetails();
+        $productDetailInformation = $productDetail->getProductDetails($url);
          
         echo 'FilaMent List:  Index ----'.$index.'<br/>';
         echo 'Picture link : '.$imageUrl.'<br/>'.'Name : '.$materialType.'<br/>'.'Link : '.$startUrl.'<br/>'
@@ -53,12 +58,13 @@
 		$weightInKg = $productDetailInformation['weightInKg'];
 		$colorNames = $productDetailInformation['colorNames'];
 		$colorImgUrls = $productDetailInformation['colorImgUrls'];
-		 
+
+		//没有颜色
 		if(count($colorNames) == 0){
 			$productXml=$xml->addchild("product");
 			$idXml = $productXml->addAttribute("id",$index);
 			$materialTypeXml = $productXml->addchild("materialType",$materialType);
-			$brandXml = $productXml->addchild("brand",'brand');
+			$brandXml = $productXml->addchild("brand",$brand);
 			$producerXml = $productXml->addchild("producer",$producer);
 			$priceXml = $productXml->addchild("price",$price);
 			$diameterXml = $productXml->addchild("diameter",$diameter);
@@ -77,7 +83,7 @@
 				$productXml=$xml->addchild("product");
 				$idXml = $productXml->addAttribute("id",$index);
 				$materialTypeXml = $productXml->addchild("materialType",$materialType);
-				$brandXml = $productXml->addchild("brand",'brand');
+				$brandXml = $productXml->addchild("brand",$brand);
 				$producerXml = $productXml->addchild("producer",$producer);
 				$priceXml = $productXml->addchild("price",$price);
 				$diameterXml = $productXml->addchild("diameter",$diameter);
@@ -105,49 +111,78 @@
     }
     
 	$filename = date('YmdHi', time()).'-'.$company.'.xml';
-    $xml->asXml($filename); 
-         
-    
-    function getProductDetails($productUrl){
-		$html = file_get_html($productUrl);
-		$widthWeightContent = $html->find('.filament-width-weight');
-		$widthWeightValue = $widthWeightContent[0]->plaintext;
-		$arr = explode(' , ',$widthWeightValue);
-		$weigths = explode(' ',$arr[1]);
-			
-		$diameter = preg_replace("/\s/","", $arr[0]);
-			
-		$weightValue = preg_replace("/[a-zA-Z]+/","", $weigths[0]);
-		$weightUnit = preg_replace('/[0-9_.-]/', '', $weigths[0]);
-		$weightInKg = 0;
-		switch($weightUnit){
-			case "g":
-				$weightInKg = $weightValue / 1000;
-				break;
-			case "kg":
-				$weightInKg = $weightValue;
-				break;
-			case "lb":
-				$weightInKg = $weightValue * 0.45;
-				break;
+    $xml->asXml($filename);
+
+
+	/**
+	 * 从类型字符串中提取类型和品牌
+	 * @param $typeString
+	 * @return array
+	 */
+	function getBrandAndType($typeString){
+		if (strstr($typeString, '(') && strstr($typeString,')')) {
+
+			$brandText = preg_replace('/\((.*)\)/', '', $typeString);
+			preg_match_all("/(?:\()(.*)(?:\))/i",$typeString, $result);
+			$type = $result[1][0];
+			$brand = trim($brandText);
+
+			return array('type'=>$type,'brand'=>$brand);
+
+		} else {
+			$value = str_replace(' ','',$typeString);
+			return array('type'=>$value,'brand'=>$value);;
 		}
-		
-		$colorNames = array();
-		$colorImgUrls = array();
-		$colorContent = $html->find('.filament-colors');
-		if(count($colorContent) != 0){
-			$colorLi = $colorContent[0]->find('li');
-			$i = 0;
-			foreach($colorLi as $color){
-				$colorText = $color->find('img')[0];
-				$colorName = $colorText->alt;
-				$colorImgUrl = 'https://www.lulzbot.com'.$colorText->src;
-				
-				$colorNames[$i] = $colorName;
-				$colorImgUrls[$i] = $colorImgUrl;
-				$i++;
+	}
+
+	/**
+	 * 添加颜色到颜色库
+	 * @param $colorName
+	 */
+	function colorLibraryOperate($colorName){
+		if (file_exists('test.xml'))
+		{
+		  $xml = simplexml_load_file('test.xml');
+		  var_dump($xml);
+		}
+
+		else
+		{
+			$xml=new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><Colors />'); 
+			$filename = date('YmdHi', time()).'-'.'color.xml';
+			$xml->asXml($filename);
+		}
+	}
+	
+	/**
+	*判断颜色库中是否存在该颜色
+	* @param $colorName  颜色名
+	* @param $xml  加载的xml文件信息
+	*/
+	function isColorExist($colorName,$xml){
+			$items = $xml->product;
+		$flag = false;
+		foreach($items as $it){
+			$color = $it->color;
+			
+			if(strcasecmp($color,$colorName) == 0){
+				echo $colorName.'    exsits';
+				$flag = true;
+				return $flag;
 			}
 		}
-        return array('diameter'=>$diameter,'weight'=>$weigths[0],'packForm'=>$weightUnit,'weightInKg'=>$weightInKg,'colorNames'=>$colorNames,'colorImgUrls'=>$colorImgUrls);
-     }
+		var_dump($flag);
+		return $flag;
+	}
+	
+	/**
+	*添加颜色到颜色库
+	* @param $colorName 颜色名称
+	* @param $xml 加载的xml信息
+	* @param $fileName xml文件名
+	*/
+	function addColor($colorName,$xml,$filename){
+		$xml->addchild('color',$colorName);
+		$xml->asXml($filename);
+	}
 ?>
