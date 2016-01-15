@@ -1,9 +1,9 @@
 <?php
-    include 'simple_html_dom.php';
-	$url = "https://www.lulzbot.com/store/filament/abs-5lb-reel";
+    // include 'simple_html_dom.php';
+	// $url = "https://www.lulzbot.com/store/filament/abs-5lb-reel";
     
-	$value = new ProductDetails();
-	$value->getProductDetails($url);
+	// $value = new ProductDetails();
+	// $value->getProductDetails($url);
 
 class ProductDetails{
      function getProductDetails($productUrl){
@@ -41,7 +41,7 @@ class ProductDetails{
 				$colorText = $color->find('img')[0];
 				$colorName = $colorText->alt;
 				$colorImgUrl = 'https://www.lulzbot.com'.$colorText->src;
-				echo $colorImgUrl;
+				// echo $colorImgUrl;
 				$colorNames[$i] = $colorName;
 				$colorImgUrls[$i] = $colorImgUrl;
 				$i++;
