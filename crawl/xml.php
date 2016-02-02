@@ -46,16 +46,12 @@
     // return array('type'=>$value,'brand'=>$value);;
 // }
 
-	if (file_exists('test.xml'))
-	{
-	  $xml = simplexml_load_file('test.xml');
-	  var_dump($xml);
-	}
+$logName = 'logs/'.date('YmdHi', time()).'-crawl.log';
+error_log("You messed up1! \r\n", 3, $logName);
+error_log("You messed up2! \r\n", 3, $logName);
+error_log("You messed up3! \r\n", 3, $logName);
+error_log("You messed up4! \r\n", 3, $logName);
 
-	else
-	{
-	  exit('Error.');
-	}
 	
 ?>
 

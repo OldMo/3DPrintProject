@@ -11,7 +11,7 @@
     //print( $content[0]);
 
 
-    foreach($content-[0]->find('a') as $element){
+    foreach($content[0]->find('a') as $element){
 		$hrefStr = $element->href;
 		//echo $hrefStr.'--';
 		$isContain = stripos($hrefStr,$selectFlag);

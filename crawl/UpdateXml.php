@@ -4,7 +4,7 @@
    
     header("Content-type: text/html; charset=utf-8");  
 	
-	$colorLibraryName = 'ColorLibrary.xml';
+	$colorLibraryName = 'lulzbot.xml';
 	$colorXml = createColorLibrary($colorLibraryName);
 	
 	$productXml = simplexml_load_file('201601150831-lulzbot.xml');

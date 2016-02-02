@@ -41,23 +41,34 @@
         $producer = $hrefStr[2]->plaintext;
          
         //获取价格
-        $price = $element->find('.field-items')[0]->plaintext;
+        $priceInfo = $element->find('.field-items')[0]->plaintext;
+		$price = $priceInfo['price'];
+		$priceUnit = $priceInfo['priceUnit'];
 
+
+		//调用产品信息类
 		$productDetail = new ProductDetails();
-        $productDetailInformation = $productDetail->getProductDetails($url);
+		$productHtml = $productDetail->getHtml($url);
+
+//        $productDetailInformation = $productDetail->getProductDetails($url);
          
         echo 'FilaMent List:  Index ----'.$index.'<br/>';
         echo 'Picture link : '.$imageUrl.'<br/>'.'Name : '.$materialType.'<br/>'.'Link : '.$startUrl.'<br/>'
           .'Manufacture : '.$producer.'<br/>'.'Price : '.$price;
           echo '<br/>---------------------------------------------------------------------<br/>';
          
-		 
-		$diameter = $productDetailInformation['diameter'];
-		$weight = $productDetailInformation['weight'];
-		$packForm = $productDetailInformation['packForm'];
-		$weightInKg = $productDetailInformation['weightInKg'];
-		$colorNames = $productDetailInformation['colorNames'];
-		$colorImgUrls = $productDetailInformation['colorImgUrls'];
+		 $diameterIndex = $productDetail->setDiameterIndex($url);
+		$diameterInfo = $productDetail->getDiameters($productHtml,$diameterIndex);
+		$weightInfo = $productDetail->getWeight($productHtml);
+		$colorInfo = $productDetail->getColor($productHtml);
+		$description = $productDetail->getFeatures($productHtml);
+		$diameter = $diameterInfo['value'];
+		$diameterUnit = $diameterInfo['diameterUnit'];
+		$weight = $weightInfo['weight'];
+		$packForm = $weightInfo['packForm'];
+		$weightInKg = $weightInfo['weightInKg'];
+		$colorNames = $colorInfo['colorNames'];
+		$colorImgUrls = $colorInfo['colorImgUrls'];
 
 		//没有颜色
 		if(count($colorNames) == 0){
@@ -67,7 +78,9 @@
 			$brandXml = $productXml->addchild("brand",$brand);
 			$producerXml = $productXml->addchild("producer",$producer);
 			$priceXml = $productXml->addchild("price",$price);
+			$priceUnit = $productXml->addChild("priceUnit",$priceUnit);
 			$diameterXml = $productXml->addchild("diameter",$diameter);
+			$diameterUnit = $productXml->addchild("diameterUnit",$diameterUnit);
 			$colorXml = $productXml->addchild("color",'null');
 			$colorImgUrlXml = $productXml->addchild("colorImgUrl",'null');
 			$weightXml = $productXml->addchild("weight",$weight);
@@ -75,6 +88,7 @@
 			$weightInKgXml = $productXml->addchild("weightInKg",$weightInKg);
 			$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
 			$urlXml = $productXml->addchild("url",$url);
+			$descriptionXml = $productXml->addchild("description",$description);
 			$index++;
 			  
 		}else{
@@ -86,7 +100,9 @@
 				$brandXml = $productXml->addchild("brand",$brand);
 				$producerXml = $productXml->addchild("producer",$producer);
 				$priceXml = $productXml->addchild("price",$price);
+				$priceUnit = $productXml->addChild("priceUnit",$priceUnit);
 				$diameterXml = $productXml->addchild("diameter",$diameter);
+				$diameterUnit = $productXml->addchild("diameterUnit",$diameterUnit);
 				$colorXml = $productXml->addchild("color",$colorNames[$i]);
 				$colorImgUrlXml = $productXml->addchild("colorImgUrl",$colorImgUrls[$i]);
 				$weightXml = $productXml->addchild("weight",$weight);
@@ -94,6 +110,7 @@
 				$weightInKgXml = $productXml->addchild("weightInKg",$weightInKg);
 				$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
 				$urlXml = $productXml->addchild("url",$url);
+				$descriptionXml = $productXml->addchild("description",$description);
 				
 				$index++;
 			}
@@ -133,6 +150,18 @@
 			$value = str_replace(' ','',$typeString);
 			return array('type'=>$value,'brand'=>$value);;
 		}
+	}
+
+	/**
+	 * 将价格和价格单位分割
+	 * @param $priceStr
+	 * @return array
+	 */
+	function splitPrice($priceStr){
+		$price = substr($priceStr,0,1);
+		$priceUnit = substr($priceStr,1,strlen($priceStr) - 1);
+
+		return array('price'=>$price,'priceUnit'=>$priceUnit);
 	}
 
 	/**
