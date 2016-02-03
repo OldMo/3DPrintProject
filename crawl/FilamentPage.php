@@ -42,8 +42,17 @@
          
         //获取价格
         $priceInfo = $element->find('.field-items')[0]->plaintext;
-		$price = $priceInfo['price'];
-		$priceUnit = $priceInfo['priceUnit'];
+		$priceValue = splitPrice($priceInfo);
+		$price = $priceValue['price'];
+		$priceFlag = $priceValue['priceUnit'];
+
+		$priceUnit;
+		switch($priceFlag){
+			case '$': $priceUnit = 'USD';break;
+			case '¥': $priceUnit = 'RMB'; break;
+			case '£': $priceUnit = 'GBP'; break;
+			default: $priceUnit = 'USD';break;
+		}
 
 
 		//调用产品信息类
@@ -62,9 +71,11 @@
 		$weightInfo = $productDetail->getWeight($productHtml);
 		$colorInfo = $productDetail->getColor($productHtml);
 		$description = $productDetail->getFeatures($productHtml);
-		$diameter = $diameterInfo['value'];
+
+		$diameter = $diameterInfo['diameter'];
 		$diameterUnit = $diameterInfo['diameterUnit'];
 		$weight = $weightInfo['weight'];
+		$weightUnit = $weightInfo['weightUnit'];
 		$packForm = $weightInfo['packForm'];
 		$weightInKg = $weightInfo['weightInKg'];
 		$colorNames = $colorInfo['colorNames'];
@@ -84,11 +95,15 @@
 			$colorXml = $productXml->addchild("color",'null');
 			$colorImgUrlXml = $productXml->addchild("colorImgUrl",'null');
 			$weightXml = $productXml->addchild("weight",$weight);
+			$weightUnit = $productXml->addchild("weightUnit",$weightUnit);
 			$packFormXml = $productXml->addchild("packForm",$packForm);
 			$weightInKgXml = $productXml->addchild("weightInKg",$weightInKg);
 			$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
 			$urlXml = $productXml->addchild("url",$url);
 			$descriptionXml = $productXml->addchild("description",$description);
+			$sellerXml = $productXml->addchild("seller","Lulzbot");
+			$sellerWebXml = $productXml->addchild("sellerWeb","Lulzbot.com");
+
 			$index++;
 			  
 		}else{
@@ -106,19 +121,22 @@
 				$colorXml = $productXml->addchild("color",$colorNames[$i]);
 				$colorImgUrlXml = $productXml->addchild("colorImgUrl",$colorImgUrls[$i]);
 				$weightXml = $productXml->addchild("weight",$weight);
+				$weightUnit = $productXml->addchild("weightUnit",$weightUnit);
 				$packFormXml = $productXml->addchild("packForm",$packForm);
 				$weightInKgXml = $productXml->addchild("weightInKg",$weightInKg);
 				$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
 				$urlXml = $productXml->addchild("url",$url);
 				$descriptionXml = $productXml->addchild("description",$description);
-				
+				$sellerXml = $productXml->addchild("seller","Lulzbot");
+				$sellerWebXml = $productXml->addchild("sellerWeb","Lulzbot.com");
+
 				$index++;
 			}
 		}
 		
-		if($breakFlag == 4){
-			break;
-		}
+//		if($breakFlag == 4){
+//			break;
+//		}
 		
 		$breakFlag++;
 		  
@@ -127,7 +145,7 @@
         flush();//刷新输出缓冲
     }
     
-	$filename = date('YmdHi', time()).'-'.$company.'.xml';
+	$filename = 'xml/'.date('YmdHi', time()).'-'.$company.'.xml';
     $xml->asXml($filename);
 
 
@@ -158,8 +176,8 @@
 	 * @return array
 	 */
 	function splitPrice($priceStr){
-		$price = substr($priceStr,0,1);
-		$priceUnit = substr($priceStr,1,strlen($priceStr) - 1);
+		$priceUnit = substr($priceStr,0,1);
+		$price = substr($priceStr,1,strlen($priceStr) - 1);
 
 		return array('price'=>$price,'priceUnit'=>$priceUnit);
 	}

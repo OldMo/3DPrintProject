@@ -1,0 +1,205 @@
+
+Laybrick
+<matherialType>Laybrick</matherialType>
+<matherialSubType>Laybrick stone</matherialSubType>
+<brand>Laybrick</brand>
+<producer>CC-Products</producer>
+<packForm>coil</packForm>
+
+Laywoo-D3 (LayWood)
+<matherialType>Laywoo-D3 (LayWood)</matherialType>
+<matherialSubType>Wood</matherialSubType>
+<brand>Laywoo-D3</brand>
+<producer>CC-Products</producer>
+<packForm>coil</packForm>
+
+t-glase
+<matherialType>PETT/PET/PETG</matherialType>
+<matherialSubType>PETT/PET/PETG</matherialSubType>
+<brand>t-glase</brand>
+<producer>Taulman 3D</producer>
+<packForm>reel</packForm>
+
+
+
+
+
+Nylon 618
+<matherialType>Nylon</matherialType>
+<matherialSubType>Nylon 618</matherialSubType>
+<brand>Nylon 618</brand>
+<producer>Taulman 3D</producer>
+<packForm>reel</packForm>
+
+Nylon 645
+<matherialType>Nylon</matherialType>
+<matherialSubType>Nylon 645</matherialSubType>
+<brand>Nylon 645</brand>
+<producer>Taulman 3D</producer>
+<packForm>reel</packForm>
+
+
+Bridge Nylon
+<matherialType>Nylon</matherialType>
+<matherialSubType>Nylon 6</matherialSubType>
+<brand>Bridge Nylon</brand>
+<producer>Taulman 3D</producer>
+<packForm>reel</packForm>
+
+Alloy 910
+<matherialType>Nylon</matherialType>
+<matherialSubType>Nylon 6/69</matherialSubType>
+<brand>Alloy 910</brand>
+<producer>Taulman 3D</producer>
+<packForm>reel</packForm>
+
+
+
+
+PCTPE
+<matherialType>Nylon</matherialType>
+<matherialSubType>Nylon 6 TPE</matherialSubType>
+<brand>PCTPE</brand>
+<producer>Taulman 3D</producer>
+
+
+
+Cleaning
+<matherialType>HDPE</matherialType>
+<matherialSubType>Cleaning</matherialSubType>
+<brand>eSUN</brand>
+<producer>eSUN</producer>
+<ingredient>High Density Polyethylene (HDPE)</ingredient>
+<packForm>coil</packForm>
+
+--------------
+
+
+Natural PVA
+<matherialType>PVA</matherialType>
+<matherialSubType>PVA</matherialSubType>
+<brand>eSUN</brand>
+<producer>eSUN</producer>
+<ingredient>polyvinyl alcohol</ingredient>
+<packForm>coil</packForm>
+
+bambooFill bamboo
+<matherialType>PLA</matherialType>
+<matherialSubType>bamboo</matherialSubType>
+<brand>bambooFill</brand>
+<producer>colorFabb</producer>
+<ingredient>PLA,bamboo</ingredient>
+<packForm>reel</packForm>
+
+bronzeFill bronze
+<matherialType>PLA</matherialType>
+<matherialSubType>bronze</matherialSubType>
+<brand>bronzeFill</brand>
+<producer>colorFabb</producer>
+<ingredient>PLA,bronze powder</ingredient>
+<packForm>reel</packForm>
+
+copperFill copper
+<matherialType>PLA</matherialType>
+<matherialSubType>copper</matherialSubType>
+<brand>copperFill</brand>
+<producer>colorFabb</producer>
+<ingredient>PLA,copper powder</ingredient>
+<packForm>reel</packForm>
+
+
+woodFill wood
+<matherialType>PLA</matherialType>
+<matherialSubType>Wood</matherialSubType>
+<brand>woodFill</brand>
+<producer>colorFabb</producer>
+<ingredient>PLA,wood</ingredient>
+<packForm>reel</packForm>
+
+Coffee PLA
+<matherialType>PLA</matherialType>
+<matherialSubType>Coffee</matherialSubType>
+<brand>Proto-pasta</brand>
+<producer>Proto-pasta</producer>
+<ingredient>PLA,Coffee</ingredient>
+<packForm>reel</packForm>
+
+Conductive PLA
+<matherialType>PLA</matherialType>
+<matherialSubType>Conductive</matherialSubType>
+<brand>Proto-pasta</brand>
+<producer>Proto-pasta</producer>
+<ingredient>PLA,Carbon Black</ingredient>
+<packForm>reel</packForm>
+
+Magnetic Iron PLA
+<matherialType>PLA</matherialType>
+<matherialSubType>Magnetic Iron</matherialSubType>
+<brand>Proto-pasta</brand>
+<producer>Proto-pasta</producer>
+<ingredient>PLA,Carbon Black</ingredient>
+<packForm>reel</packForm>
+
+PC-ABS Alloy
+<matherialType>ABS</matherialType>
+<matherialSubType>PC-ABS Alloy</matherialSubType>
+<brand>PC-ABS Alloy</brand>
+<producer>Proto-pasta</producer>
+<ingredient>Bisphenol A,phosgen;Acrylinitrile,butadiene,styrene terpolym</ingredient>
+<packForm>reel</packForm>
+
+Stainless Steel PLA
+<matherialType>PLA</matherialType>
+<matherialSubType>Stainless Steel</matherialSubType>
+<brand>Proto-pasta</brand>
+<producer>Proto-pasta</producer>
+<ingredient>PLA,butadiene,Stainless Steel</ingredient>
+<packForm>reel</packForm>
+
+
+INOVA-1800
+<matherialType>Amphora Polymer AM1800</matherialType>
+<matherialSubType>Amphora Polymer AM1800</matherialSubType>
+<brand>INOVA-1800</brand>
+<producer>Chroma Strand Labs</producer>
+<ingredient>Eastman Amphora 3D Polymer AM1800</ingredient>
+<packForm>reel</packForm>
+
+n-vent
+<matherialType>Amphora Polymer AM1800</matherialType>
+<matherialSubType>Amphora Polymer AM1800</matherialSubType>
+<brand>n-vent</brand>
+<producer>Taulman 3D</producer>
+<ingredient>Eastman Amphora 3D Polymer AM1800</ingredient>
+<packForm>reel</packForm>
+
+NinjaFlex
+<matherialType>NinjaFlex</matherialType>
+<matherialSubType>NinjaFlex</matherialSubType>
+<brand>NinjaFlex</brand>
+<producer>Fenner Drives</producer>
+<ingredient>polyurethane</ingredient>
+<packForm>reel</packForm>
+
+SemiFlex
+<matherialType>SemiFlex</matherialType>
+<matherialSubType>SemiFlex</matherialSubType>
+<brand>SemiFlex</brand>
+<producer>Fenner Drives</producer>
+<ingredient>polyurethane</ingredient>
+<packForm>reel</packForm>
+<tag>flexible</tag>
+
+Polycarbonate
+<matherialType>Polycarbonate</matherialType>
+<matherialSubType>Polycarbonate</matherialSubType>
+<brand>Village Plastics</brand>
+<producer>Village Plastics</producer>
+<ingredient>Poly(bisphenol-A-carbonate)</ingredient>
+<packForm>reel</packForm>
+
+
+*Note
+ø’∏ÒŒ Ã‚ <brand>Alloy910</brand>
+
+PETG or PET-G  Polyethylene terephthalate glycol-modified

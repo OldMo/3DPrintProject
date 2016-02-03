@@ -58,7 +58,7 @@ class ProductDetails{
 				break;
 		}
 
-		echo 'weight:'.$weightValue['value'].'-weightUnit:'.$weightValue['unit'].'-packForm:'.$packForm.'-weightInKg：'.$weightInKg.'<br/>';
+//		echo 'weight:'.$weightValue['value'].'-weightUnit:'.$weightValue['unit'].'-packForm:'.$packForm.'-weightInKg：'.$weightInKg.'<br/>';
 		return array('weight'=>$weightValue['value'],'weightUnit'=>$weightValue['unit'],'packForm'=>$packForm,'weightInKg'=>$weightInKg);
 	}
 
@@ -93,8 +93,8 @@ class ProductDetails{
 	 * @param $productUrl
 	 */
 	function getFeatures($html){
-		$featureContent = $html->find('.accordion-panel')[0];
-		echo $featureContent.'<br/>';
+		$featureContent = $html->find('.accordion-panel')[0]->plaintext;
+//		echo $featureContent.'<br/>';
 		return $featureContent;
 
 	}
@@ -112,7 +112,7 @@ class ProductDetails{
 		$diameter = trim($result[1][0]);
 
 		$diameterValue = $this->splitNumberAndChar($diameter);
-		echo trim($diameterValue['value']).'-'.trim($diameterValue['unit']).'<br/>';
+//		echo trim($diameterValue['value']).'-'.trim($diameterValue['unit']).'<br/>';
 
 		return array('diameter'=>trim($diameterValue['value']),'diameterUnit'=>trim($diameterValue['unit']));
 	}
