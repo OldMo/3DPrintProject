@@ -72,7 +72,7 @@ Cleaning
 <ingredient>High Density Polyethylene (HDPE)</ingredient>
 <packForm>coil</packForm>
 
---------------
+
 
 
 Natural PVA
@@ -164,7 +164,7 @@ INOVA-1800
 <producer>Chroma Strand Labs</producer>
 <ingredient>Eastman Amphora 3D Polymer AM1800</ingredient>
 <packForm>reel</packForm>
-
+-
 n-vent
 <matherialType>Amphora Polymer AM1800</matherialType>
 <matherialSubType>Amphora Polymer AM1800</matherialSubType>
@@ -197,7 +197,7 @@ Polycarbonate
 <producer>Village Plastics</producer>
 <ingredient>Poly(bisphenol-A-carbonate)</ingredient>
 <packForm>reel</packForm>
-
+-----------------------------------------------------------------------------------------
 
 *Note
 ø’∏ÒŒ Ã‚ <brand>Alloy910</brand>

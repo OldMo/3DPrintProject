@@ -551,7 +551,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="26">
-        <materialType>Nylon</materialType>
+        <matherialType>Nylon</matherialType>
 		<matherialSubType>Nylon 6/69</matherialSubType>
 		<brand>Alloy 910</brand>
 		<producer>Taulman 3D</producer>
@@ -573,7 +573,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="27">
-       <materialType>PLA</materialType>
+       <matherialType>PLA</matherialType>
 		<matherialSubType>bamboo</matherialSubType>
 		<brand>bambooFill</brand>
 		<producer>colorFabb</producer>
@@ -595,7 +595,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="28">
-        <materialType>Nylon</materialType>
+        <matherialType>Nylon</matherialType>
 		<matherialSubType>Nylon 6</matherialSubType>
 		<brand>Bridge Nylon</brand>
 		<producer>Taulman 3D</producer>
@@ -617,7 +617,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="29">
-       <materialType>PLA</materialType>
+       <matherialType>PLA</matherialType>
 		<matherialSubType>bronze</matherialSubType>
 		<brand>bronzeFill</brand>
 		<producer>colorFabb</producer>
@@ -639,7 +639,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="30">
-       <materialType>HDPE</materialType>
+       <matherialType>HDPE</matherialType>
 		<matherialSubType>Cleaning</matherialSubType>
 		<brand>eSUN</brand>
 		<producer>eSUN</producer>
@@ -661,7 +661,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="31">
-       <materialType>PLA</materialType>
+       <matherialType>PLA</matherialType>
 		<matherialSubType>Coffee</matherialSubType>
 		<brand>Proto-pasta</brand>
 		<producer>Proto-pasta</producer>
@@ -683,7 +683,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="32">
-       <materialType>PLA</materialType>
+       <matherialType>PLA</matherialType>
 		<matherialSubType>Conductive</matherialSubType>
 		<brand>Proto-pasta</brand>
 		<producer>Proto-pasta</producer>
@@ -705,7 +705,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="33">
-      <materialType>PLA</materialType>
+      <matherialType>PLA</matherialType>
 		<matherialSubType>copper</matherialSubType>
 		<brand>copperFill</brand>
 		<producer>colorFabb</producer>
@@ -1057,7 +1057,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="49">
-       <materialType>Amphora Polymer AM1800</materialType>
+       <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1079,7 +1079,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="50">
-       <materialType>Amphora Polymer AM1800</materialType>
+       <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1101,7 +1101,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="51">
-       <materialType>Amphora Polymer AM1800</materialType>
+       <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1123,7 +1123,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="52">
-       <materialType>Amphora Polymer AM1800</materialType>
+       <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1145,7 +1145,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="53">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1167,7 +1167,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="54">
-       <materialType>Amphora Polymer AM1800</materialType>
+       <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1189,7 +1189,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="55">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1211,7 +1211,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="56">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1233,7 +1233,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="57">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1255,7 +1255,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="58">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>INOVA-1800</brand>
 		<producer>Chroma Strand Labs</producer>
@@ -1277,7 +1277,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="59">
-        <materialType>Laybrick</materialType>
+        <matherialType>Laybrick</matherialType>
 		<matherialSubType>Laybrick stone</matherialSubType>
 		<brand>Laybrick</brand>
 		<producer>CC-Products</producer>
@@ -1299,7 +1299,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="60">
-        <materialType>Laywoo-D3 (LayWood)</materialType>
+        <matherialType>Laywoo-D3 (LayWood)</matherialType>
 		<matherialSubType>Wood</matherialSubType>
 		<brand>Laywoo-D3</brand>
         <producer>CC-Products</producer>
@@ -1321,7 +1321,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="61">
-      <materialType>PLA</materialType>
+      <matherialType>PLA</matherialType>
 		<matherialSubType>Magnetic Iron</matherialSubType>
 		<brand>Proto-pasta</brand>
 		<producer>Proto-pasta</producer>
@@ -1343,7 +1343,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="62">
-       <materialType>Amphora Polymer AM1800</materialType>
+       <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>n-vent</brand>
 		<producer>Taulman 3D</producer>
@@ -1365,7 +1365,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="63">
-       <materialType>Amphora Polymer AM1800</materialType>
+       <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>n-vent</brand>
 		<producer>Taulman 3D</producer>
@@ -1387,7 +1387,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="64">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>n-vent</brand>
 		<producer>Taulman 3D</producer>
@@ -1409,7 +1409,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="65">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>n-vent</brand>
 		<producer>Taulman 3D</producer>
@@ -1431,7 +1431,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="66">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>n-vent</brand>
 		<producer>Taulman 3D</producer>
@@ -1453,7 +1453,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="67">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>n-vent</brand>
 		<producer>Taulman 3D</producer>
@@ -1475,7 +1475,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="68">
-        <materialType>Amphora Polymer AM1800</materialType>
+        <matherialType>Amphora Polymer AM1800</matherialType>
 		<matherialSubType>Amphora Polymer AM1800</matherialSubType>
 		<brand>n-vent</brand>
 		<producer>Taulman 3D</producer>
@@ -1497,7 +1497,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="69">
-       <materialType>PVA</materialType>
+       <matherialType>PVA</matherialType>
 		<matherialSubType>PVA</matherialSubType>
 		<brand>eSUN</brand>
 		<producer>eSUN</producer>
@@ -1519,7 +1519,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="70">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1541,7 +1541,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="71">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1563,7 +1563,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="72">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1585,7 +1585,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="73">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1607,7 +1607,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="74">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1629,7 +1629,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="75">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1651,7 +1651,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="76">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1673,7 +1673,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="77">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1695,7 +1695,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="78">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1717,7 +1717,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="79">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1739,7 +1739,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="80">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1761,7 +1761,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="81">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1783,7 +1783,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="82">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1805,7 +1805,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="83">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1827,7 +1827,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="84">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1849,7 +1849,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="85">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1871,7 +1871,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="86">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1893,7 +1893,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="87">
-        <materialType>NinjaFlex</materialType>
+        <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1915,7 +1915,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="88">
-       <materialType>NinjaFlex</materialType>
+       <matherialType>NinjaFlex</matherialType>
 		<matherialSubType>NinjaFlex</matherialSubType>
 		<brand>NinjaFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -1937,7 +1937,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="89">
-       <materialType>Nylon</materialType>
+       <matherialType>Nylon</matherialType>
 		<matherialSubType>Nylon 618</matherialSubType>
 		<brand>Nylon 618</brand>
 		<producer>Taulman 3D</producer>
@@ -1959,7 +1959,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="90">
-        <materialType>Nylon</materialType>
+        <matherialType>Nylon</matherialType>
 		<matherialSubType>Nylon 645</matherialSubType>
 		<brand>Nylon 645</brand>
 		<producer>Taulman 3D</producer>
@@ -1981,7 +1981,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="91">
-       <materialType>ABS</materialType>
+       <matherialType>ABS</matherialType>
 		<matherialSubType>PC-ABS Alloy</matherialSubType>
 		<brand>PC-ABS Alloy</brand>
 		<producer>Proto-pasta</producer>
@@ -2003,7 +2003,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="92">
-      <materialType>ABS</materialType>
+      <matherialType>ABS</matherialType>
 		<matherialSubType>PC-ABS Alloy</matherialSubType>
 		<brand>PC-ABS Alloy</brand>
 		<producer>Proto-pasta</producer>
@@ -2025,7 +2025,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="93">
-		<materialType>Nylon</materialType>
+		<matherialType>Nylon</matherialType>
 		<matherialSubType>Nylon 6 TPE</matherialSubType>
 		<brand>PCTPE</brand>
 		<producer>Taulman 3D</producer>
@@ -2729,7 +2729,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="125">
-        <materialType>Polycarbonate</materialType>
+        <matherialType>Polycarbonate</matherialType>
 		<matherialSubType>Polycarbonate</matherialSubType>
 		<brand>Village Plastics</brand>
 		<producer>Village Plastics</producer>
@@ -2751,7 +2751,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="126">
-       <materialType>SemiFlex</materialType>
+       <matherialType>SemiFlex</matherialType>
 		<matherialSubType>SemiFlex</matherialSubType>
 		<brand>SemiFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -2773,7 +2773,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="127">
-        <materialType>SemiFlex</materialType>
+        <matherialType>SemiFlex</matherialType>
 		<matherialSubType>SemiFlex</matherialSubType>
 		<brand>SemiFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -2795,7 +2795,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="128">
-        <materialType>SemiFlex</materialType>
+        <matherialType>SemiFlex</matherialType>
 		<matherialSubType>SemiFlex</matherialSubType>
 		<brand>SemiFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -2817,7 +2817,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="129">
-       <materialType>SemiFlex</materialType>
+       <matherialType>SemiFlex</matherialType>
 		<matherialSubType>SemiFlex</matherialSubType>
 		<brand>SemiFlex</brand>
 		<producer>Fenner Drives</producer>
@@ -2839,7 +2839,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="130">
-        <materialType>PLA</materialType>
+        <matherialType>PLA</matherialType>
 		<matherialSubType>Stainless Steel</matherialSubType>
 		<brand>Proto-pasta</brand>
 		<producer>Proto-pasta</producer>
@@ -2861,7 +2861,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="131">
-        <materialType>PETT/PET/PETG</materialType>
+        <matherialType>PETT/PET/PETG</matherialType>
 		<matherialSubType>PETT/PET/PETG</matherialSubType>
 		<brand>t-glase</brand>
 		<producer>Taulman 3D</producer>
@@ -2883,7 +2883,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="132">
-       <materialType>PETT/PET/PETG</materialType>
+       <matherialType>PETT/PET/PETG</matherialType>
 		<matherialSubType>PETT/PET/PETG</matherialSubType>
 		<brand>t-glase</brand>
 		<producer>Taulman 3D</producer>
@@ -2905,7 +2905,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="133">
-       <materialType>PETT/PET/PETG</materialType>
+       <matherialType>PETT/PET/PETG</matherialType>
 		<matherialSubType>PETT/PET/PETG</matherialSubType>
 		<brand>t-glase</brand>
 		<producer>Taulman 3D</producer>
@@ -2927,7 +2927,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="134">
-        <materialType>PETT/PET/PETG</materialType>
+        <matherialType>PETT/PET/PETG</matherialType>
 		<matherialSubType>PETT/PET/PETG</matherialSubType>
 		<brand>t-glase</brand>
 		<producer>Taulman 3D</producer>
@@ -2949,7 +2949,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="135">
-        <materialType>PETT/PET/PETG</materialType>
+        <matherialType>PETT/PET/PETG</matherialType>
 		<matherialSubType>PETT/PET/PETG</matherialSubType>
 		<brand>t-glase</brand>
 		<producer>Taulman 3D</producer>
@@ -2971,7 +2971,7 @@
         <sellerWeb>Lulzbot.com</sellerWeb>
     </product>
     <product id="136">
-       <materialType>PLA</materialType>
+       <matherialType>PLA</matherialType>
 		<matherialSubType>Wood</matherialSubType>
 		<brand>woodFill</brand>
 		<producer>colorFabb</producer>
