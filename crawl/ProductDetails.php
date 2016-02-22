@@ -1,6 +1,6 @@
 <?php
 //	include 'simple_html_dom.php';
-//	$url = "https://www.lulzbot.com/store/filament/bronzefill";
+//	$url = "https://www.lulzbot.com/store/filament/abs";
 //
 //	$value = new ProductDetails();
 //	$html = $value->getHtml($url);
@@ -94,8 +94,8 @@ class ProductDetails{
 	 */
 	function getFeatures($html){
 		$featureContent = $html->find('.accordion-panel')[0]->plaintext;
-//		echo $featureContent.'<br/>';
-		return $featureContent;
+		//echo $featureContent.'<br/>';
+		return trim($featureContent);
 
 	}
 
