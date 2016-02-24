@@ -43,7 +43,7 @@
         //获取价格
         $priceInfo = $element->find('.field-items')[0]->plaintext;
 		$priceValue = splitPrice($priceInfo);
-		$price = $priceValue['price'];
+		$price = trim($priceValue['price']);
 		$priceFlag = $priceValue['priceUnit'];
 
 		$priceUnit;
