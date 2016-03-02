@@ -1,15 +1,15 @@
 <?php
 	include 'simple_html_dom.php';
 
-	$url = "http://store.makerbot.com/filament/flexible";
-//
+//	$url = "http://store.makerbot.com/filament/flexible";
+$url = "http://store.makerbot.com/filament/abs";
 	$product = new ProductDetails();
 	$html = $product->getHtml($url);
 //	$product->getImage($html);
-	$product->getWeight($html);
+//	$product->getWeight($html);
 //	$value->getColor($html);
 //
-//	$value->getFeatures($html);
+	$product->getFeatures($html);
 //	$diameterIndex = $value->setDiameterIndex($url);
 //	$value->getDiameters($html,$diameterIndex);
 
@@ -74,13 +74,26 @@ class ProductDetails{
 
 
 	/**
-	 * 获取特征
-	 * @param $productUrl
+	 * 获取产品描述flexible，dissolvable 为1
+	 * abs为2
 	 */
 	function getFeatures($html){
-		$featureContent = $html->find('.accordion-panel')[0]->plaintext;
-		//echo $featureContent.'<br/>';
-		return trim($featureContent);
+		$featureStr = "";
+		if("abs"){
+			$featureContent = $html->find('.container')[2];
+		}else{
+			$featureContent = $html->find('.container')[1];
+		}
+		$h4Content = $featureContent->find('h4');
+		$feaContent = $featureContent->find('.feature');
+		foreach($h4Content as $h4){
+			$featureStr .= $h4->plaintext;
+		}
+		foreach($feaContent as $f){
+			$featureStr .= $f->plaintext;
+		}
+		echo $featureStr;
+		return trim($featureStr);
 
 	}
 
