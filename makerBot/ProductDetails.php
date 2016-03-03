@@ -2,14 +2,15 @@
 	include 'simple_html_dom.php';
 
 //	$url = "http://store.makerbot.com/filament/flexible";
-$url = "http://store.makerbot.com/filament/pla";
+$url = "http://store.makerbot.com/filament/pla#small";
 	$product = new ProductDetails();
 	$html = $product->getHtml($url);
 //	$product->getImage($html);
 //	$product->getWeight($html);
-//	$value->getColor($html);
+//$product->getFeatures($html,"abs");
+	$product->getColor($html);
 //
-	$product->getFeatures($html,"pla");
+
 //	$diameterIndex = $value->setDiameterIndex($url);
 //	$value->getDiameters($html,$diameterIndex);
 
@@ -49,27 +50,33 @@ class ProductDetails{
 
 	/**
 	 * 获取颜色
+	 * pla通过以下四个链接获取
+	 * http://store.makerbot.com/filament/pla#small
+	 * http://store.makerbot.com/filament/pla#large
+	 * http://store.makerbot.com/filament/pla#xl
+	 * http://store.makerbot.com/filament/pla#xxl
 	 * @param $html
 	 * @return array
 	 */
 	function getColor($html){
 		$colorNames = array();
 		$colorImgUrls = array();
-		$colorContent = $html->find('.filament-colors');
+		$colorContent = $html->find('section');
+		echo $colorContent[0]->plaintext;
 		//有颜色
-		if(count($colorContent) != 0){
-			$colorLi = $colorContent[0]->find('li');
-			$i = 0;
-			foreach($colorLi as $color){
-				$colorText = $color->find('img')[0];
-				$colorName = $colorText->alt;
-				$colorImgUrl = 'https://www.lulzbot.com'.$colorText->src;
-				$colorNames[$i] = $colorName;
-				$colorImgUrls[$i] = $colorImgUrl;
-				$i++;
-			}
-		}
-		return array('colorNames'=>$colorNames,'colorImgUrls'=>$colorImgUrls);
+//		if(count($colorContent) != 0){
+//			$colorLi = $colorContent[0]->find('li');
+//			$i = 0;
+//			foreach($colorLi as $color){
+//				$colorText = $color->find('img')[0];
+//				$colorName = $colorText->alt;
+//				$colorImgUrl = 'https://www.lulzbot.com'.$colorText->src;
+//				$colorNames[$i] = $colorName;
+//				$colorImgUrls[$i] = $colorImgUrl;
+//				$i++;
+//			}
+//		}
+//		return array('colorNames'=>$colorNames,'colorImgUrls'=>$colorImgUrls);
 	}
 
 	/**
@@ -77,7 +84,7 @@ class ProductDetails{
 	 * abs为2,pla也为2，但获取内容的地方不一样
 	 */
 	function getFeatures($html,$name){
-	echo $html;
+
 		$featureStr = "";
 		if(strcasecmp("abs",$name) == 0){
 			$featureContent = $html->find('.container')[2];
