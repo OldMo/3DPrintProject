@@ -2,14 +2,14 @@
 	include 'simple_html_dom.php';
 
 //	$url = "http://store.makerbot.com/filament/flexible";
-$url = "http://store.makerbot.com/filament/abs";
+$url = "http://store.makerbot.com/filament/pla";
 	$product = new ProductDetails();
 	$html = $product->getHtml($url);
 //	$product->getImage($html);
 //	$product->getWeight($html);
 //	$value->getColor($html);
 //
-	$product->getFeatures($html);
+	$product->getFeatures($html,"pla");
 //	$diameterIndex = $value->setDiameterIndex($url);
 //	$value->getDiameters($html,$diameterIndex);
 
@@ -72,15 +72,30 @@ class ProductDetails{
 		return array('colorNames'=>$colorNames,'colorImgUrls'=>$colorImgUrls);
 	}
 
-
 	/**
 	 * 获取产品描述flexible，dissolvable 为1
-	 * abs为2
+	 * abs为2,pla也为2，但获取内容的地方不一样
 	 */
-	function getFeatures($html){
+	function getFeatures($html,$name){
+	echo $html;
 		$featureStr = "";
-		if("abs"){
+		if(strcasecmp("abs",$name) == 0){
 			$featureContent = $html->find('.container')[2];
+		}else if(strcasecmp("pla",$name) == 0){
+			$featureContent = $html->find('.pane')[1];
+			//产品特征第一部分内容
+			$des1 = $featureContent->find('.container')[1]->plaintext;
+			$featureStr .= $des1;
+			
+			//产品特征第二部分内容
+			$wightBg = $featureContent->find('.whitebg')[0];
+			$des2 = $wightBg->find('ul');
+			foreach($des2 as $des){
+				$featureStr .= $des->plaintext;
+			}
+			
+			echo $featureStr;
+			return $featureStr;
 		}else{
 			$featureContent = $html->find('.container')[1];
 		}
