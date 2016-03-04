@@ -2,17 +2,18 @@
 	include 'simple_html_dom.php';
 
 //	$url = "http://store.makerbot.com/filament/flexible";
-$url = "http://store.makerbot.com/filament/pla#small";
+$url = "http://store.makerbot.com/filament/abs";
 	$product = new ProductDetails();
 	$html = $product->getHtml($url);
 //	$product->getImage($html);
 //	$product->getWeight($html);
 //$product->getFeatures($html,"abs");
-	$product->getColor($html);
+	// $product->getPlaColor($html);
 //
 
-//	$diameterIndex = $value->setDiameterIndex($url);
-//	$value->getDiameters($html,$diameterIndex);
+	// $urlByColor = "http://store.makerbot.com/filament/pla#z18-truered";
+	// $product->getPlaPrice($urlByColor);
+
 
 class ProductDetails{
 	function getHtml($url){
@@ -49,7 +50,7 @@ class ProductDetails{
 	}
 
 	/**
-	 * 获取颜色
+	 * 获取颜色pla
 	 * pla通过以下四个链接获取
 	 * http://store.makerbot.com/filament/pla#small
 	 * http://store.makerbot.com/filament/pla#large
@@ -58,26 +59,46 @@ class ProductDetails{
 	 * @param $html
 	 * @return array
 	 */
-	function getColor($html){
+	function getPlaColor($html){
 		$colorNames = array();
 		$colorImgUrls = array();
-		$colorContent = $html->find('section');
-		echo $colorContent[0]->plaintext;
-		//有颜色
-//		if(count($colorContent) != 0){
-//			$colorLi = $colorContent[0]->find('li');
-//			$i = 0;
-//			foreach($colorLi as $color){
-//				$colorText = $color->find('img')[0];
-//				$colorName = $colorText->alt;
-//				$colorImgUrl = 'https://www.lulzbot.com'.$colorText->src;
-//				$colorNames[$i] = $colorName;
-//				$colorImgUrls[$i] = $colorImgUrl;
-//				$i++;
-//			}
-//		}
+		$colorContent = $html->find('.categories',0);
+		$colorLis = $colorContent->find('li');
+		foreach($colorLis as $colorLi){
+		
+			//获取css中的颜色名字缩写，包含在<div data-color="natural" title="Natural" class="circle pla_natural"></div> 中的data-color="truebrown"，需要提取truebrown
+			$colorStr = $colorLi->find('.circle',0);
+			$splitStr = explode(' ',$colorStr);
+			$dataColor = $splitStr[count($splitStr)-1]; //得到字符串data-color="truebrown">
+			
+			preg_match_all('/\"(.*?)\"/', $dataColor,$matches);//提取双引号内容
+			$colorUrlName = $matches[1][0];
+			
+			
+			$urlByColor = "http://store.makerbot.com/filament/pla#z18-".$colorUrlName;
+			echo $urlByColor.'<br/>';
+			
+			//获取颜色名字
+			// $color = $colorLi->find('.color_name')[0]->plaintext;
+			// echo $color.'----';
+		}
+		
 //		return array('colorNames'=>$colorNames,'colorImgUrls'=>$colorImgUrls);
 	}
+	
+	function getPlaPrice($urlByColor){
+		$content = $this->getHtml($urlByColor);
+		echo $content;
+		
+		// $priceSelectionContent = $content->find('.four');
+		// foreach($priceSelectionContent as $p)
+			// echo $p;
+		// $buttonContent = $priceSelectionContent->find('button');
+		// foreach($buttonContent as $button){
+			// echo $button->plaintext;
+		// }
+	}
+	
 
 	/**
 	 * 获取产品描述flexible，dissolvable 为1
