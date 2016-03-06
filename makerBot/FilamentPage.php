@@ -3,7 +3,8 @@
 	set_time_limit(0);
     include 'simple_html_dom.php';
 	//include 'ProductDetails.php';
-	$company = 'makerBot';
+	$company = 'makerbot';
+	$companyWeb = 'makerbot.com';
 	$companyUrl = 'http://store.makerbot.com';
     $startUrl = "http://store.makerbot.com/filament";
     
@@ -22,9 +23,10 @@
     ob_end_flush();//输出缓冲区内容并关闭缓冲
     ob_implicit_flush(1);//立即输出
     foreach($content[0]->find('a') as $element){
-        $hrefStr = $companyUrl.$element->href;
 
-		echo $hrefStr.'<br/>';
+        $hrefStr = $companyUrl.$element->href;
+		$productName = strtolower($element->plaintext);
+		echo $hrefStr.'--'.$productName.'<br/>';
 		/*
         // 获取材料图片
         $picAnchor = $hrefStr[0]->find('img');
@@ -56,44 +58,55 @@
 			case '£': $priceUnit = 'GBP'; break;
 			default: $priceUnit = 'USD';break;
 		}
+*/
 
+		//abs,pla直径信息
+		$diameterInformation = array();
 
 		//调用产品信息类
-		$productDetail = new ProductDetails();
-		$productHtml = $productDetail->getHtml($url);
+		$productDetails = new ProductDetails();
+		$productHtml = $productDetails->getHtml($hrefStr);
 
+		$productDetailFromJs = new ProductDetailsFromJS();
+		$productInfo = array();
+		if(strcasecmp($productName,'abs') == 0){
+			$productInfo = $productDetailFromJs->getAbsProductInfo($productHtml,$productName);
+			$diameterInformation = $productDetails->getDiameters($productHtml);
+		}else if(strcasecmp($productName,'pla') == 0){
+			$productInfo = $productDetailFromJs->getPlaProductInfo($productHtml,$productName);
+			$diameterInformation = $productDetails->getPlaDiameters($productHtml);
+		}
 
+		//图片
+		$imageUrl = $productDetails->getImage($productHtml);
+		//描述
+		$description = $productDetails->getFeatures($productHtml,$productName);
 
-//        $productDetailInformation = $productDetail->getProductDetails($url);
-         
-        echo 'FilaMent List:  Index ----'.$index.'<br/>';
-        echo 'Picture link : '.$imageUrl.'<br/>'.'Name : '.$materialType.'<br/>'.'Link : '.$startUrl.'<br/>'
-          .'Manufacture : '.$producer.'<br/>'.'Price : '.$price;
-          echo '<br/>---------------------------------------------------------------------<br/>';
-         
-		 $diameterIndex = $productDetail->setDiameterIndex($url);
-		$diameterInfo = $productDetail->getDiameters($productHtml,$diameterIndex);
-		$weightInfo = $productDetail->getWeight($productHtml);
-		$colorInfo = $productDetail->getColor($productHtml);
-		$description = $productDetail->getFeatures($productHtml);
+		$url = $hrefStr;
 
-		$diameter = $diameterInfo['diameter'];
-		$diameterUnit = $diameterInfo['diameterUnit'];
-		$weight = $weightInfo['weight'];
-		$weightUnit = $weightInfo['weightUnit'];
-		$packForm = $weightInfo['packForm'];
-		$weightInKg = $weightInfo['weightInKg'];
-		$colorNames = $colorInfo['colorNames'];
-		$colorImgUrls = $colorInfo['colorImgUrls'];
+		//没有颜色信息
+		if(count($productInfo) == 0){
+			//价格信息
+			$priceInfo = $productDetails->getPrice($productHtml);
+			$price = $priceInfo['price'];
+			$priceUnit = $priceInfo['priceUnit'];
 
-		//没有颜色
-		if(count($colorNames) == 0){
+			//直径
+			$diameterInfo = $productDetails->getDiameters($productHtml);
+			$diameter = $diameterInfo['diameter'];
+			$diameterUnit = $diameterInfo['diameterUnit'];
+
+			//重量
+			$weightInfo = $productDetails->getWeight($productHtml);
+			$weight = $weightInfo['weight'];
+			$weightUnit = $weightInfo['weightUnit'];
+
 			$productXml=$xml->addchild("product");
 			$idXml = $productXml->addAttribute("id",$index);
-			$materialTypeXml = $productXml->addchild("materialType",$materialType);
-			$matherialSubTypeXml = $productXml->addchild("matherialSubType","");
-			$brandXml = $productXml->addchild("brand","");
-			$producerXml = $productXml->addchild("producer",$producer);
+			$materialTypeXml = $productXml->addchild("materialType",$productName);
+			$matherialSubTypeXml = $productXml->addchild("matherialSubType",$productName);
+			$brandXml = $productXml->addchild("brand",$company);
+			$producerXml = $productXml->addchild("producer",$company);
 			$ingredientXml = $productXml->addchild("ingredient","");
 			$priceXml = $productXml->addchild("price",$price);
 			$priceUnit = $productXml->addChild("priceUnit",$priceUnit);
@@ -103,53 +116,50 @@
 			$colorImgUrlXml = $productXml->addchild("colorImgUrl",'');
 			$weightXml = $productXml->addchild("weight",$weight);
 			$weightUnit = $productXml->addchild("weightUnit",$weightUnit);
-			$packFormXml = $productXml->addchild("packForm",$packForm);
-			$weightInKgXml = $productXml->addchild("weightInKg",$weightInKg);
+			$packFormXml = $productXml->addchild("packForm","");
+			$weightInKgXml = $productXml->addchild("weightInKg",1);
 			$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
 			$urlXml = $productXml->addchild("url",$url);
 			$descriptionXml = $productXml->addchild("description",$description);
-			$sellerXml = $productXml->addchild("seller","Lulzbot");
-			$sellerWebXml = $productXml->addchild("sellerWeb","Lulzbot.com");
+			$sellerXml = $productXml->addchild("seller",$company);
+			$sellerWebXml = $productXml->addchild("sellerWeb",$companyWeb);
 
 			$index++;
-			  
+
 		}else{
-			for($i = 0; $i < count($colorNames); $i++){
-		  
+			foreach($productInfo as $product){
+				$priceUnit = 'USD';
+				$weightUnit = 'kg';
+
+				$diameter = $diameterInformation['diameter'];
+				$diameterUnit = $diameterInformation['diameterUnit'];
+
 				$productXml=$xml->addchild("product");
 				$idXml = $productXml->addAttribute("id",$index);
-				$materialTypeXml = $productXml->addchild("materialType",$materialType);
-				$matherialSubTypeXml = $productXml->addchild("matherialSubType","");
-				$brandXml = $productXml->addchild("brand","");
-				$producerXml = $productXml->addchild("producer",$producer);
+				$materialTypeXml = $productXml->addchild("materialType",$productName);
+				$matherialSubTypeXml = $productXml->addchild("matherialSubType",$productName);
+				$brandXml = $productXml->addchild("brand",$company);
+				$producerXml = $productXml->addchild("producer",$company);
 				$ingredientXml = $productXml->addchild("ingredient","");
-				$priceXml = $productXml->addchild("price",$price);
+				$priceXml = $productXml->addchild("price",$product['price']);
 				$priceUnit = $productXml->addChild("priceUnit",$priceUnit);
 				$diameterXml = $productXml->addchild("diameter",$diameter);
 				$diameterUnit = $productXml->addchild("diameterUnit",$diameterUnit);
-				$colorXml = $productXml->addchild("color",$colorNames[$i]);
-				$colorImgUrlXml = $productXml->addchild("colorImgUrl",$colorImgUrls[$i]);
-				$weightXml = $productXml->addchild("weight",$weight);
+				$colorXml = $productXml->addchild("color",$product['color']);
+				$colorImgUrlXml = $productXml->addchild("colorImgUrl",$product['colorImgUrl']);
+				$weightXml = $productXml->addchild("weight",$product['weight']);
 				$weightUnit = $productXml->addchild("weightUnit",$weightUnit);
-				$packFormXml = $productXml->addchild("packForm",$packForm);
-				$weightInKgXml = $productXml->addchild("weightInKg",$weightInKg);
+				$packFormXml = $productXml->addchild("packForm","");
+				$weightInKgXml = $productXml->addchild("weightInKg",1);
 				$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
 				$urlXml = $productXml->addchild("url",$url);
 				$descriptionXml = $productXml->addchild("description",$description);
-				$sellerXml = $productXml->addchild("seller","Lulzbot");
-				$sellerWebXml = $productXml->addchild("sellerWeb","Lulzbot.com");
+				$sellerXml = $productXml->addchild("seller",$company);
+				$sellerWebXml = $productXml->addchild("sellerWeb",$companyWeb);
 
 				$index++;
 			}
 		}
-
-         */
-		
-//		if($breakFlag == 4){
-//			break;
-//		}
-		
-		$breakFlag++;
 		  
         sleep(1);
         ob_flush();//输出缓冲区中的内容

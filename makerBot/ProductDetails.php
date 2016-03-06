@@ -1,19 +1,17 @@
 <?php
 	include 'simple_html_dom.php';
-
+//	$url = 'http://store.makerbot.com/pla';
+$url = 'http://store.makerbot.com/dissolvable-filament.html';
 //	$url = "http://store.makerbot.com/filament/flexible";
-$url = "http://store.makerbot.com/filament/abs";
+//$url = "http://store.makerbot.com/filament/abs";
 	$product = new ProductDetails();
 	$html = $product->getHtml($url);
 //	$product->getImage($html);
 //	$product->getWeight($html);
 //$product->getFeatures($html,"abs");
 	// $product->getPlaColor($html);
-//
-
-	// $urlByColor = "http://store.makerbot.com/filament/pla#z18-truered";
-	// $product->getPlaPrice($urlByColor);
-
+//$product->getDiameters($html);
+	$product->getPrice($html);
 
 class ProductDetails{
 	function getHtml($url){
@@ -34,6 +32,18 @@ class ProductDetails{
 	}
 
 	/**
+	 * 获取产品价格dissolvable,flexible
+	 * @param $html
+	 * @return string
+	 */
+	function getPrice($html){
+		$orderContent = $html->find('.order_inside',0);
+		$price = trim($orderContent->find('div[id=price]',0)->plaintext);
+		$priceInfo = $this->splitPrice($price);
+		return $priceInfo;
+	}
+
+	/**
 	 * 获取重量信息flexible,dissolvable,abs
 	 * @param $html
 	 * @return array
@@ -49,56 +59,6 @@ class ProductDetails{
 		return array('weight'=>$weightValue,'weightUnit'=>$weightWeight);
 	}
 
-	/**
-	 * 获取颜色pla
-	 * pla通过以下四个链接获取
-	 * http://store.makerbot.com/filament/pla#small
-	 * http://store.makerbot.com/filament/pla#large
-	 * http://store.makerbot.com/filament/pla#xl
-	 * http://store.makerbot.com/filament/pla#xxl
-	 * @param $html
-	 * @return array
-	 */
-	function getPlaColor($html){
-		$colorNames = array();
-		$colorImgUrls = array();
-		$colorContent = $html->find('.categories',0);
-		$colorLis = $colorContent->find('li');
-		foreach($colorLis as $colorLi){
-		
-			//获取css中的颜色名字缩写，包含在<div data-color="natural" title="Natural" class="circle pla_natural"></div> 中的data-color="truebrown"，需要提取truebrown
-			$colorStr = $colorLi->find('.circle',0);
-			$splitStr = explode(' ',$colorStr);
-			$dataColor = $splitStr[count($splitStr)-1]; //得到字符串data-color="truebrown">
-			
-			preg_match_all('/\"(.*?)\"/', $dataColor,$matches);//提取双引号内容
-			$colorUrlName = $matches[1][0];
-			
-			
-			$urlByColor = "http://store.makerbot.com/filament/pla#z18-".$colorUrlName;
-			echo $urlByColor.'<br/>';
-			
-			//获取颜色名字
-			// $color = $colorLi->find('.color_name')[0]->plaintext;
-			// echo $color.'----';
-		}
-		
-//		return array('colorNames'=>$colorNames,'colorImgUrls'=>$colorImgUrls);
-	}
-	
-	function getPlaPrice($urlByColor){
-		$content = $this->getHtml($urlByColor);
-		echo $content;
-		
-		// $priceSelectionContent = $content->find('.four');
-		// foreach($priceSelectionContent as $p)
-			// echo $p;
-		// $buttonContent = $priceSelectionContent->find('button');
-		// foreach($buttonContent as $button){
-			// echo $button->plaintext;
-		// }
-	}
-	
 
 	/**
 	 * 获取产品描述flexible，dissolvable 为1
@@ -110,20 +70,7 @@ class ProductDetails{
 		if(strcasecmp("abs",$name) == 0){
 			$featureContent = $html->find('.container')[2];
 		}else if(strcasecmp("pla",$name) == 0){
-			$featureContent = $html->find('.pane')[1];
-			//产品特征第一部分内容
-			$des1 = $featureContent->find('.container')[1]->plaintext;
-			$featureStr .= $des1;
-			
-			//产品特征第二部分内容
-			$wightBg = $featureContent->find('.whitebg')[0];
-			$des2 = $wightBg->find('ul');
-			foreach($des2 as $des){
-				$featureStr .= $des->plaintext;
-			}
-			
-			echo $featureStr;
-			return $featureStr;
+			$this->getPlaFeature($html);
 		}else{
 			$featureContent = $html->find('.container')[1];
 		}
@@ -141,21 +88,76 @@ class ProductDetails{
 	}
 
 	/**
-	 * 获取直径并分割数值和单位
-	 * @param $productUrl
+	 * 获取pla的特征信息
+	 * @param $html
+	 * @return string
 	 */
-	function getDiameters($html,$index){
-		$specificationsContent = $html->find('.accordion-panel')[$index];
-		$diameterContent = $specificationsContent->find('p')[0]->plaintext;
+	function getPlaFeature($html){
+		$featureStr = "";
+		$featureContent = $html->find('.pane')[1];
+		//产品特征第一部分内容
+		$des1 = $featureContent->find('.container')[1]->plaintext;
+		$featureStr .= $des1;
 
-		//获取':'和'('之间的内容，如Filament Diameter: 3mm (.118 inches)
-		preg_match_all("/(?:\:)(.*)(?:\()/i",$diameterContent, $result);
-		$diameter = trim($result[1][0]);
+		//产品特征第二部分内容
+		$wightBg = $featureContent->find('.whitebg')[0];
+		$des2 = $wightBg->find('ul');
+		foreach($des2 as $des){
+			$featureStr .= $des->plaintext;
+		}
+
+		echo $featureStr;
+		return $featureStr;
+	}
+
+	/**
+	 * 获取直径并分割数值和单位abs,flexible,dissolvable
+	 * @param $html
+	 */
+	function getDiameters($html){
+		$specificationsContent = $html->find('.row',4);
+		$diameterContent = $specificationsContent->find('.kg',0)->plaintext;
+		$diameter = str_replace(" ","",$diameterContent);
+		echo $diameter.'<br/>';
+
 
 		$diameterValue = $this->splitNumberAndChar($diameter);
-//		echo trim($diameterValue['value']).'-'.trim($diameterValue['unit']).'<br/>';
+		echo trim($diameterValue['value']).'-'.trim($diameterValue['unit']).'<br/>';
 
 		return array('diameter'=>trim($diameterValue['value']),'diameterUnit'=>trim($diameterValue['unit']));
+	}
+
+
+	/**
+	 * 获取pla直径并分割数值和单位
+	 * @param $html
+	 */
+	function getPlaDiameters($html){
+		$specificationContent = $html->find('.row',4);
+		$diameterContent = $specificationContent->find('.small',0)->plaintext;
+		$diameter = str_replace(" ","",$diameterContent);
+		echo $diameter.'<br/>';
+
+		$diameterValue = $this->splitNumberAndChar($diameter);
+		echo trim($diameterValue['value']).'-'.trim($diameterValue['unit']).'<br/>';
+
+		return array('diameter'=>trim($diameterValue['value']),'diameterUnit'=>trim($diameterValue['unit']));
+	}
+
+
+
+	/**
+	 * 获取flexible,dissolvable颜色图片地址,
+	 * @param $html
+	 */
+	function getColorImg($html){
+		$colorImgContent = $html->find('div[id=hero]',0);
+		$colorImg = $colorImgContent->find('.img',0)->style;
+
+		preg_match_all('/\'(.*?)\'/', $colorImg,$matches);//提取双引号内容；即图片地址
+		$colorUrl = 'http://store.makerbot.com'.$matches[1][0];
+
+		echo $colorImg.'---'.$colorUrl;
 	}
 
 
@@ -169,5 +171,25 @@ class ProductDetails{
 		$unit = preg_replace('/[0-9_.-]/', '', $str);
 		return array('value'=>$value,'unit'=>$unit);
 	}
+
+	/**
+	 * 将价格和价格单位分割
+	 * @param $priceStr
+	 * @return array
+	 */
+	function splitPrice($priceStr){
+		$priceFlag = substr($priceStr,0,1);
+		$price = substr($priceStr,1,strlen($priceStr) - 1);
+
+		switch($priceFlag){
+			case '$': $priceUnit = 'USD';break;
+			case '¥': $priceUnit = 'RMB'; break;
+			case '£': $priceUnit = 'GBP'; break;
+			default: $priceUnit = 'USD';break;
+		}
+		return array('price'=>$price,'priceUnit'=>$priceUnit);
+	}
+
+
 }
 ?>
