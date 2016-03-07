@@ -1,11 +1,11 @@
 <?php
-	include 'simple_html_dom.php';
-	$url = "http://store.makerbot.com/filament/pla";
-	$name = "pla";
-	$product = new ProductDetailsFromJS();
-	$html = $product->getHtml($url);
+	// include 'simple_html_dom.php';
+	// $url = "http://store.makerbot.com/filament/pla";
+	// $name = "pla";
+	// $product = new ProductDetailsFromJS();
+	// $html = $product->getHtml($url);
 
-	$array = $product->getPlaProductInfo($html,$name);
+	// $product->getPlaWeight($html);
 
 class ProductDetailsFromJS{
 	function getHtml($url){
@@ -32,24 +32,20 @@ class ProductDetailsFromJS{
 		$colorInformation = array();
 		$i = 0;
 		foreach($InfoByjsonArray as $single){
-			if($i < count($InfoByjsonArray) - 1){
-//				print_r($single);
-//				$this->jumpLine();
-				$color = $single['short_name'];
-				$colorUrl = $colorImgUrlPre.'/'.strtolower(str_replace(" ","",$color)).'.png';
+			$color = $single['short_name'];
+			$colorUrl = $colorImgUrlPre.'/'.strtolower(str_replace(" ","",$color)).'.png';
 
-				$type = $single['type'];
-				$size_list = $single['size_list'];
-				foreach($size_list as $size){
-					$price = $single['sizes'][strtoupper($size)]['price'];
-					$weight = $weights[strtolower($size)];
-					echo $color.'--'.$colorUrl.'--'.$price.'--'.$type.'--'.$weight.'<br/>';
-					$colorInformation[$i] = array("color"=>$color,"colorImgUrl"=>$colorUrl,"weight"=>$weight,"price"=>$price,"type"=>$type);
-				}
-
-
-				$this->jumpLine();
+			$type = $single['type'];
+			$size_list = $single['size_list'];
+			foreach($size_list as $size){
+				$price = $single['sizes'][strtoupper($size)]['price'];
+				$weight = $weights[strtolower($size)];
+				echo $color.'--'.$colorUrl.'--'.$price.'--'.$type.'--'.$weight.'<br/>';
+				$colorInformation[$i] = array("color"=>$color,"colorImgUrl"=>$colorUrl,"weight"=>$weight,"price"=>$price,"type"=>$type);
 			}
+
+
+			$this->jumpLine();
 			$i++;
 		}
 

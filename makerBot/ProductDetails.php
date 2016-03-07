@@ -1,17 +1,17 @@
 <?php
-	include 'simple_html_dom.php';
-//	$url = 'http://store.makerbot.com/pla';
-$url = 'http://store.makerbot.com/dissolvable-filament.html';
+	 // include 'simple_html_dom.php';
+	// $url = 'http://store.makerbot.com/pla';
+// $url = 'http://store.makerbot.com/dissolvable-filament.html';
 //	$url = "http://store.makerbot.com/filament/flexible";
 //$url = "http://store.makerbot.com/filament/abs";
-	$product = new ProductDetails();
-	$html = $product->getHtml($url);
-//	$product->getImage($html);
-//	$product->getWeight($html);
+	 // $product = new ProductDetails();
+	 // $html = $product->getHtml($url);
+	// $product->getPlaImage($html);
+	// $product->getWeight($html);
 //$product->getFeatures($html,"abs");
 	// $product->getPlaColor($html);
 //$product->getDiameters($html);
-	$product->getPrice($html);
+	// $product->getPrice($html);
 
 class ProductDetails{
 	function getHtml($url){
@@ -27,6 +27,21 @@ class ProductDetails{
 	function getImage($html){
 		$imgContent = $html->find('.active');
 		$imgSrc = 'http://store.makerbot.com'.$imgContent[0]->src;
+		echo $imgSrc;
+		return $imgSrc;
+	}
+	
+	/**
+	 * 获取产品图片pla,只能从<img data-screen="mobile" data-src="/mb-images/store/filament/pla/spool-mobile.png" alt="MakerBot PLA Filament Spool">提取
+	 * @param $html
+	 * @return string
+	 */
+	function getPlaImage($html){
+		$imgContent = $html->find('.pane',1);
+		$imgPos = $imgContent->find('img',1);
+		$imgText = explode(" ",$imgPos)[2];
+		preg_match_all('/\"(.*?)\"/', $imgText,$matches);//提取双引号内容；即图片地址
+		$imgSrc = 'http://store.makerbot.com'.$matches[1][0];
 		echo $imgSrc;
 		return $imgSrc;
 	}
@@ -53,8 +68,8 @@ class ProductDetails{
 		$weight = $weightContent[0]->plaintext;
 		$weightArray = explode(' ',$weight);
 
-		$weightWeight = $weightArray[0];
-		$weightValue = $weightArray[1];
+		$weightValue = $weightArray[0];
+		$weightWeight = $weightArray[1];
 
 		return array('weight'=>$weightValue,'weightUnit'=>$weightWeight);
 	}
@@ -70,7 +85,8 @@ class ProductDetails{
 		if(strcasecmp("abs",$name) == 0){
 			$featureContent = $html->find('.container')[2];
 		}else if(strcasecmp("pla",$name) == 0){
-			$this->getPlaFeature($html);
+			$featureStr = $this->getPlaFeature($html);
+			return $featureStr;
 		}else{
 			$featureContent = $html->find('.container')[1];
 		}
@@ -154,7 +170,7 @@ class ProductDetails{
 		$colorImgContent = $html->find('div[id=hero]',0);
 		$colorImg = $colorImgContent->find('.img',0)->style;
 
-		preg_match_all('/\'(.*?)\'/', $colorImg,$matches);//提取双引号内容；即图片地址
+		preg_match_all('/\'(.*?)\'/', $colorImg,$matches);//提取单引号内容；即图片地址
 		$colorUrl = 'http://store.makerbot.com'.$matches[1][0];
 
 		echo $colorImg.'---'.$colorUrl;
