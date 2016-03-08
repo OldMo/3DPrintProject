@@ -47,7 +47,11 @@
 		}
 
 		//图片
-		$imageUrl = $productDetails->getImage($productHtml);
+		if(strcasecmp($productName,'pla')==0){
+			$imageUrl = $productDetails->getPlaImage($productHtml);
+		}else{
+			$imageUrl = $productDetails->getImage($productHtml);
+		}
 		//描述
 		$description = $productDetails->getFeatures($productHtml,$productName);
 
@@ -61,18 +65,18 @@
 		if(count($productInfo) == 0){
 			//价格信息
 			$priceInfo = $productDetails->getPrice($productHtml);
-			$price = $priceInfo['price'];
-			$priceUnit = $priceInfo['priceUnit'];
+			$price = trim($priceInfo['price']);
+			$priceUnit = trim($priceInfo['priceUnit']);
 
 			//直径
 			$diameterInfo = $productDetails->getDiameters($productHtml);
-			$diameter = $diameterInfo['diameter'];
-			$diameterUnit = $diameterInfo['diameterUnit'];
+			$diameter = trim($diameterInfo['diameter']);
+			$diameterUnit = trim($diameterInfo['diameterUnit']);
 
 			//重量
 			$weightInfo = $productDetails->getWeight($productHtml);
-			$weight = $weightInfo['weight'];
-			$weightUnit = $weightInfo['weightUnit'];
+			$weight = trim($weightInfo['weight']);
+			$weightUnit = trim($weightInfo['weightUnit']);
 
 			$productXml=$xml->addchild("product");
 			$idXml = $productXml->addAttribute("id",$index);
@@ -104,13 +108,8 @@
 				$priceUnit = 'USD';
 
 				//直径
-				$diameter = $diameterInformation['diameter'];
-				$diameterUnit = $diameterInformation['diameterUnit'];
-				
-				//重量
-				$weightInfo = $productDetails->splitNumberAndChar($product['weight']);
-				$weight = $weightInfo['value'];
-				$weightUnit = $weightInfo['unit'];
+				$diameter = trim($diameterInformation['diameter']);
+				$diameterUnit = trim($diameterInformation['diameterUnit']);
 
 				$productXml=$xml->addchild("product");
 				$idXml = $productXml->addAttribute("id",$index);
@@ -125,10 +124,10 @@
 				$diameterUnit = $productXml->addchild("diameterUnit",$diameterUnit);
 				$colorXml = $productXml->addchild("color",$product['color']);
 				$colorImgUrlXml = $productXml->addchild("colorImgUrl",$product['colorImgUrl']);
-				$weightXml = $productXml->addchild("weight",$weight);
-				$weightUnit = $productXml->addchild("weightUnit",$weightUnit);
+				$weightXml = $productXml->addchild("weight",$product['weight']);
+				$weightUnit = $productXml->addchild("weightUnit",$product['weightUnit']);
 				$packFormXml = $productXml->addchild("packForm","");
-				$weightInKgXml = $productXml->addchild("weightInKg",$weight);
+				$weightInKgXml = $productXml->addchild("weightInKg",$product['weight']);
 				$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
 				$urlXml = $productXml->addchild("url",$url);
 				$descriptionXml = $productXml->addchild("description",$description);
@@ -146,6 +145,16 @@
     
 	$filename = 'xml/'.date('YmdHi', time()).'-'.$company.'.xml';
     $xml->asXml($filename);
+	
+	
+	// $dom = new DOMDocument('1.0');
+	// $dom-> preserveWhiteSpace = false;
+	// $dom-> formatOutput = true;
+	// $dom-> loadXML();
+	//Echo XML - remove this and following line if echo not desired
+	// echo $dom-> saveXML();
+	//Save XML to file - remove this and following line if save not desired
+	// $dom-> save($filename);
 
 
 	/**

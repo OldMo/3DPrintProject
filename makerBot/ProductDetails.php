@@ -1,14 +1,14 @@
 <?php
-	 // include 'simple_html_dom.php';
-	// $url = 'http://store.makerbot.com/pla';
+	 include 'simple_html_dom.php';
+	$url = 'http://store.makerbot.com/pla';
 // $url = 'http://store.makerbot.com/dissolvable-filament.html';
 //	$url = "http://store.makerbot.com/filament/flexible";
 //$url = "http://store.makerbot.com/filament/abs";
-	 // $product = new ProductDetails();
-	 // $html = $product->getHtml($url);
+	 $product = new ProductDetails();
+	 $html = $product->getHtml($url);
 	// $product->getPlaImage($html);
 	// $product->getWeight($html);
-//$product->getFeatures($html,"abs");
+$product->getFeatures($html,"pla");
 	// $product->getPlaColor($html);
 //$product->getDiameters($html);
 	// $product->getPrice($html);
@@ -93,10 +93,10 @@ class ProductDetails{
 		$h4Content = $featureContent->find('h4');
 		$feaContent = $featureContent->find('.feature');
 		foreach($h4Content as $h4){
-			$featureStr .= $h4->plaintext;
+			$featureStr .= trim($h4->plaintext);
 		}
 		foreach($feaContent as $f){
-			$featureStr .= $f->plaintext;
+			$featureStr .= trim($f->plaintext);
 		}
 		echo $featureStr;
 		return trim($featureStr);
@@ -113,13 +113,15 @@ class ProductDetails{
 		$featureContent = $html->find('.pane')[1];
 		//产品特征第一部分内容
 		$des1 = $featureContent->find('.container')[1]->plaintext;
-		$featureStr .= $des1;
+		echo $des1.'<br/><br/>';
+		$featureStr .= trim($des1);
 
 		//产品特征第二部分内容
 		$wightBg = $featureContent->find('.whitebg')[0];
-		$des2 = $wightBg->find('ul');
+		$des2 = $wightBg->find('li');
 		foreach($des2 as $des){
-			$featureStr .= $des->plaintext;
+			echo $des.'<br/><br/>';
+			$featureStr .= trim($des->plaintext);
 		}
 
 		echo $featureStr;
@@ -185,7 +187,7 @@ class ProductDetails{
 	function splitNumberAndChar($str){
 		$value = preg_replace("/[a-zA-Z]+/","", $str);
 		$unit = preg_replace('/[0-9_.-]/', '', $str);
-		return array('value'=>$value,'unit'=>$unit);
+		return array('value'=>trim($value),'unit'=>trim($unit));
 	}
 
 	/**

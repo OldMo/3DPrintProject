@@ -1,13 +1,14 @@
 <?php
 	// include 'simple_html_dom.php';
-	// $url = "http://store.makerbot.com/filament/pla";
-	// $name = "pla";
+	// $url = "http://store.makerbot.com/filament/abs";
+	// $name = "abs";
 	// $product = new ProductDetailsFromJS();
 	// $html = $product->getHtml($url);
-
+	// $colors = $product->getAbsProductInfo($html,$name);
 	// $product->getPlaWeight($html);
 
 class ProductDetailsFromJS{
+
 	function getHtml($url){
 		$html = file_get_html($url);
 		return $html;
@@ -38,15 +39,16 @@ class ProductDetailsFromJS{
 			$type = $single['type'];
 			$size_list = $single['size_list'];
 			foreach($size_list as $size){
-				$price = $single['sizes'][strtoupper($size)]['price'];
-				$weight = $weights[strtolower($size)];
-				echo $color.'--'.$colorUrl.'--'.$price.'--'.$type.'--'.$weight.'<br/>';
-				$colorInformation[$i] = array("color"=>$color,"colorImgUrl"=>$colorUrl,"weight"=>$weight,"price"=>$price,"type"=>$type);
+				$price = trim($single['sizes'][strtoupper($size)]['price']);
+				$weightInfo = $this->splitNumberAndChar($weights[strtolower($size)]);
+				$weight = trim($weightInfo['value']);
+				$weightUnit = trim($weightInfo['unit']);
+				
+				echo $color.'--'.$colorUrl.'--'.$price.'--'.$type.'--'.$weight.'--'.$size.'<br/>';
+				$colorInformation[$i] = array("color"=>$color,"colorImgUrl"=>$colorUrl,"weight"=>$weight,"weightUnit"=>$weightUnit,"price"=>$price,"type"=>$type);
+				$i++;
 			}
-
-
 			$this->jumpLine();
-			$i++;
 		}
 
 		return $colorInformation;
@@ -70,18 +72,22 @@ class ProductDetailsFromJS{
 		$colorInformation = array();
 		$i = 0;
 		foreach($InfoByjsonArray as $single){
+			//最后一个为discoverable，不在此处处理
 			if($i < count($InfoByjsonArray) - 1){
 				$productInfo = $single['name'];
 				$color = $single['short_name'];
 				$colorUrl = $colorImgUrlPre.'/'.$single['formatted'].'.jpg';
-				$price = $single['price'];
+				$price = trim($single['price']);
 				$type = $single['type'];
-				$weight = $this->getAbsWeight($productInfo,$color);
-
-				$colorInformation[$i] = array("color"=>$color,"colorImgUrl"=>$colorUrl,"weight"=>$weight,"price"=>$price,"type"=>$type);
-				echo $color.'--'.$colorUrl.'--'.$weight.'--'.$price.'--'.$type;
+				$weightInfo = $this->splitNumberAndChar($this->getAbsWeight($productInfo,$color));
+				$weight = trim($weightInfo['value']);
+				$weightUnit = trim($weightInfo['unit']);
+				
+				$colorInformation[$i] = array("color"=>$color,"colorImgUrl"=>$colorUrl,"weight"=>$weight,"weightUnit"=>$weightUnit,"price"=>$price,"type"=>$type);
+				 echo $color.'--'.$colorUrl.'--'.$weight.'--'.$price.'--'.$type;
 			}
 			$i++;
+			$this->jumpLine();
 		}
 
 		return $colorInformation;
@@ -105,7 +111,6 @@ class ProductDetailsFromJS{
 		} else {
 			$weight = $infomation[3];
 		}
-		$this->jumpLine();
 		return $weight;
 	}
 
