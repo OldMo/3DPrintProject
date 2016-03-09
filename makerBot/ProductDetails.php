@@ -1,18 +1,22 @@
 <?php
-	 include 'simple_html_dom.php';
-	$url = 'http://store.makerbot.com/pla';
+	 // include 'simple_html_dom.php';
+	// $url = 'http://store.makerbot.com/abs';
 // $url = 'http://store.makerbot.com/dissolvable-filament.html';
-//	$url = "http://store.makerbot.com/filament/flexible";
+	// $url = "http://store.makerbot.com/filament/flexible";
 //$url = "http://store.makerbot.com/filament/abs";
-	 $product = new ProductDetails();
-	 $html = $product->getHtml($url);
+	 // $product = new ProductDetails();
+	 // $html = $product->getHtml($url);
 	// $product->getPlaImage($html);
 	// $product->getWeight($html);
-$product->getFeatures($html,"pla");
+// $product->getFeatures($html,"dissolvable");
 	// $product->getPlaColor($html);
 //$product->getDiameters($html);
 	// $product->getPrice($html);
 
+	// $str = "MakerBot ABS Filament is the best,             most consistent, and most testedABS             filament for MakerBot Replicator 2X             Experimental 3D Printers.When used with MakerBot Replicator 2X Experimental 3D Printers,             MakerBot ABS Filament helps produce higher-quality prints,              reduce filament problems, and minimize downtime.All MakerBot Filament is manufactured to produce the highest quality 3D prints and is trusted by leading companies and institutions the world over, thanks to state-of-the-art filament manufacturing and quality control standards.Because it鈥檚 more flexible than PLA, MakerBot ABS is great for mechanical designs or ones that have interlocking or pin-connected pieces.Compared to PLA, ABS has a longer lifespan, is more impact resistant, and has a more matte look and finish.MakerBot ABS Filament has a high melting point, so it鈥檚 suitable for machine or car parts.MakerBot ABS Filament is soluble in acetone, so you can 鈥渨eld鈥� parts together with just a drop or two or smooth surfaces and create a high gloss by brushing or dipping full ABS pieces in acetone.MakerBot ABS filament adheres well to Kapton tape on a heated build plate.                 MakerBot ABS Filament requires a heated build platform. Also, make sure your build plate is level, clean, and oil-free.                 Use MakerBot ABS Filament in a well-ventilated area.";
+	
+	// echo $product->delete_special_mark($str);
+	
 class ProductDetails{
 	function getHtml($url){
 		$html = file_get_html($url);
@@ -97,9 +101,10 @@ class ProductDetails{
 		}
 		foreach($feaContent as $f){
 			$featureStr .= trim($f->plaintext);
-		}
-		echo $featureStr;
-		return trim($featureStr);
+		} 
+		$fStr = $this->delete_special_mark($featureStr);
+		echo ($fStr);
+		return $fStr;
 
 	}
 
@@ -208,6 +213,14 @@ class ProductDetails{
 		return array('price'=>$price,'priceUnit'=>$priceUnit);
 	}
 
+	
+	function delete_special_mark($str){   
+		//去除字符串 首尾 空白等特殊符号或指定字符序列   
+		$str = trim($str);    
+		//去掉空白   
+		$str = str_replace("  ","",$str);     
+		return $str;   
+}  
 
 }
 ?>
