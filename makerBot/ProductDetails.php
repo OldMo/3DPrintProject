@@ -1,14 +1,14 @@
 <?php
-	 // include 'simple_html_dom.php';
-	// $url = 'http://store.makerbot.com/abs';
+//	  include 'simple_html_dom.php';
+//	 $url = 'http://store.makerbot.com/abs';
 // $url = 'http://store.makerbot.com/dissolvable-filament.html';
 	// $url = "http://store.makerbot.com/filament/flexible";
 //$url = "http://store.makerbot.com/filament/abs";
-	 // $product = new ProductDetails();
-	 // $html = $product->getHtml($url);
+//	  $product = new ProductDetails();
+//	  $html = $product->getHtml($url);
 	// $product->getPlaImage($html);
 	// $product->getWeight($html);
-// $product->getFeatures($html,"dissolvable");
+// $product->getFeatures($html,"abs");
 	// $product->getPlaColor($html);
 //$product->getDiameters($html);
 	// $product->getPrice($html);
@@ -97,12 +97,14 @@ class ProductDetails{
 		$h4Content = $featureContent->find('h4');
 		$feaContent = $featureContent->find('.feature');
 		foreach($h4Content as $h4){
-			$featureStr .= trim($h4->plaintext);
+			$featureStr .= strip_tags($h4);
 		}
 		foreach($feaContent as $f){
-			$featureStr .= trim($f->plaintext);
-		} 
+			$featureStr .= strip_tags($f->find('.text',0));
+		}
+
 		$fStr = $this->delete_special_mark($featureStr);
+
 		echo ($fStr);
 		return $fStr;
 
@@ -118,14 +120,12 @@ class ProductDetails{
 		$featureContent = $html->find('.pane')[1];
 		//产品特征第一部分内容
 		$des1 = $featureContent->find('.container')[1]->plaintext;
-		echo $des1.'<br/><br/>';
 		$featureStr .= trim($des1);
 
 		//产品特征第二部分内容
 		$wightBg = $featureContent->find('.whitebg')[0];
 		$des2 = $wightBg->find('li');
 		foreach($des2 as $des){
-			echo $des.'<br/><br/>';
 			$featureStr .= trim($des->plaintext);
 		}
 
@@ -218,8 +218,8 @@ class ProductDetails{
 		//去除字符串 首尾 空白等特殊符号或指定字符序列   
 		$str = trim($str);    
 		//去掉空白   
-		$str = str_replace("  ","",$str);     
-		return $str;   
+		$str = str_replace("  ","",$str);
+		return $str;
 }  
 
 }

@@ -1,18 +1,25 @@
 <?php
 
 	set_time_limit(0);
+	header("Content-type: text/html; charset=utf-8");
     include 'simple_html_dom.php';
 	include 'ProductDetails.php';
 	include 'ProductDetailsFromJS.php';
 	$company = 'makerbot';
-	$companyWeb = 'makerbot.com';
+	$companyWeb = 'http://www.makerbot.com/';
 	$companyUrl = 'http://store.makerbot.com';
     $startUrl = "http://store.makerbot.com/filament";
     
-    header("Content-type: text/html; charset=utf-8");  
-    $xml=new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><ProductInfo />'); 
-	$startUrlXml = $xml->addAttribute('startUrl',$startUrl);
-	$companyXml = $xml->addAttribute('company',$company);
+	//构建xml文件头部信息
+	$xml=new DOMDocument('1.0','utf-8');
+	$xml->formatOutput = true;
+	$root = $xml->createElement("ProductInfo");
+	$startUrlXml = $xml->createAttribute('startUrl');
+	$startUrlXml->value = $startUrl;
+	$root->appendChild($startUrlXml);
+	$companyXml = $xml->createAttribute('company');
+	$companyXml->value = $company;
+	$root->appendChild($companyXml);
 		
     $html = file_get_html($startUrl);
     $content = $html->find('.nav_box_container');
@@ -61,6 +68,9 @@
 			$url = $hrefStr;
 		}
 
+		//单位
+		$packForm  = 'reel';
+
 		//没有颜色信息
 		if(count($productInfo) == 0){
 			//价格信息
@@ -76,30 +86,57 @@
 			//重量
 			$weightInfo = $productDetails->getWeight($productHtml);
 			$weight = trim($weightInfo['weight']);
-			$weightUnit = trim($weightInfo['weightUnit']);
+			$weightUnit = strtolower(trim($weightInfo['weightUnit']));
 
-			$productXml=$xml->addchild("product");
-			$idXml = $productXml->addAttribute("id",$index);
-			$materialTypeXml = $productXml->addchild("materialType",$productName);
-			$matherialSubTypeXml = $productXml->addchild("matherialSubType",$productName);
-			$brandXml = $productXml->addchild("brand",$company);
-			$producerXml = $productXml->addchild("producer",$company);
-			$ingredientXml = $productXml->addchild("ingredient","");
-			$priceXml = $productXml->addchild("price",$price);
-			$priceUnit = $productXml->addChild("priceUnit",$priceUnit);
-			$diameterXml = $productXml->addchild("diameter",$diameter);
-			$diameterUnit = $productXml->addchild("diameterUnit",$diameterUnit);
-			$colorXml = $productXml->addchild("color",'');
-			$colorImgUrlXml = $productXml->addchild("colorImgUrl",'');
-			$weightXml = $productXml->addchild("weight",$weight);
-			$weightUnit = $productXml->addchild("weightUnit",$weightUnit);
-			$packFormXml = $productXml->addchild("packForm","");
-			$weightInKgXml = $productXml->addchild("weightInKg",$weight);
-			$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
-			$urlXml = $productXml->addchild("url",$url);
-			$descriptionXml = $productXml->addchild("description",$description);
-			$sellerXml = $productXml->addchild("seller",$company);
-			$sellerWebXml = $productXml->addchild("sellerWeb",$companyWeb);
+			//构建xml文件节点信息
+			$productXml=$xml->createElement("product");
+			$idXml = $xml->createAttribute("id");
+			$idXml->value = $index;
+			$materialTypeXml = $xml->createElement("materialType",$productName);
+			$matherialSubTypeXml = $xml->createElement("matherialSubType",$productName);
+			$brandXml = $xml->createElement("brand","");
+			$producerXml = $xml->createElement("producer",$company);
+			$ingredientXml = $xml->createElement("ingredient","");
+			$priceXml = $xml->createElement("price",$price);
+			$priceUnit = $xml->createElement("priceUnit",$priceUnit);
+			$diameterXml = $xml->createElement("diameter",$diameter);
+			$diameterUnit = $xml->createElement("diameterUnit",$diameterUnit);
+			$colorXml = $xml->createElement("color",'');
+			$colorImgUrlXml = $xml->createElement("colorImgUrl",'');
+			$weightXml = $xml->createElement("weight",$weight);
+			$weightUnit = $xml->createElement("weightUnit",$weightUnit);
+			$packFormXml = $xml->createElement("packForm",$packForm);
+			$weightInKgXml = $xml->createElement("weightInKg",$weight);
+			$imageUrlXml = $xml->createElement("imageUrl",$imageUrl);
+			$urlXml = $xml->createElement("url",$url);
+			$descriptionXml = $xml->createElement("description",$description);
+			$sellerXml = $xml->createElement("seller",$company);
+			$sellerWebXml = $xml->createElement("sellerWeb",$companyWeb);
+
+			//将节点挂到相应父节点
+			$productXml->appendChild($idXml);
+			$root->appendChild($productXml);
+			$productXml->appendChild($materialTypeXml);
+			$productXml->appendChild($matherialSubTypeXml);
+			$productXml->appendChild($brandXml);
+			$productXml->appendChild($producerXml);
+			$productXml->appendChild($ingredientXml);
+			$productXml->appendChild($priceXml);
+			$productXml->appendChild($priceUnit);
+			$productXml->appendChild($diameterXml);
+			$productXml->appendChild($diameterUnit);
+			$productXml->appendChild($colorXml);
+			$productXml->appendChild($colorImgUrlXml);
+			$productXml->appendChild($weightXml);
+			$productXml->appendChild($weightUnit);
+			$productXml->appendChild($packFormXml);
+			$productXml->appendChild($weightInKgXml);
+			$productXml->appendChild($imageUrlXml);
+			$productXml->appendChild($urlXml);
+			$productXml->appendChild($descriptionXml);
+			$productXml->appendChild($sellerXml);
+			$productXml->appendChild($sellerWebXml);
+
 
 			$index++;
 
@@ -111,28 +148,53 @@
 				$diameter = trim($diameterInformation['diameter']);
 				$diameterUnit = trim($diameterInformation['diameterUnit']);
 
-				$productXml=$xml->addchild("product");
-				$idXml = $productXml->addAttribute("id",$index);
-				$materialTypeXml = $productXml->addchild("materialType",$productName);
-				$matherialSubTypeXml = $productXml->addchild("matherialSubType",$productName);
-				$brandXml = $productXml->addchild("brand",$company);
-				$producerXml = $productXml->addchild("producer",$company);
-				$ingredientXml = $productXml->addchild("ingredient","");
-				$priceXml = $productXml->addchild("price",$product['price']);
-				$priceUnit = $productXml->addChild("priceUnit",$priceUnit);
-				$diameterXml = $productXml->addchild("diameter",$diameter);
-				$diameterUnit = $productXml->addchild("diameterUnit",$diameterUnit);
-				$colorXml = $productXml->addchild("color",$product['color']);
-				$colorImgUrlXml = $productXml->addchild("colorImgUrl",$product['colorImgUrl']);
-				$weightXml = $productXml->addchild("weight",$product['weight']);
-				$weightUnit = $productXml->addchild("weightUnit",$product['weightUnit']);
-				$packFormXml = $productXml->addchild("packForm","");
-				$weightInKgXml = $productXml->addchild("weightInKg",$product['weight']);
-				$imageUrlXml = $productXml->addchild("imageUrl",$imageUrl);
-				$urlXml = $productXml->addchild("url",$url);
-				$descriptionXml = $productXml->addchild("description",$description);
-				$sellerXml = $productXml->addchild("seller",$company);
-				$sellerWebXml = $productXml->addchild("sellerWeb",$companyWeb);
+				$productXml=$xml->createElement("product");
+				$idXml = $xml->createAttribute("id");
+				$idXml->value = $index;
+				$materialTypeXml = $xml->createElement("materialType",$productName);
+				$matherialSubTypeXml = $xml->createElement("matherialSubType",$productName);
+				$brandXml = $xml->createElement("brand","");
+				$producerXml = $xml->createElement("producer",$company);
+				$ingredientXml = $xml->createElement("ingredient","");
+				$priceXml = $xml->createElement("price",$product['price']);
+				$priceUnit = $xml->createElement("priceUnit",$priceUnit);
+				$diameterXml = $xml->createElement("diameter",$diameter);
+				$diameterUnit = $xml->createElement("diameterUnit",$diameterUnit);
+				$colorXml = $xml->createElement("color",$product['color']);
+				$colorImgUrlXml = $xml->createElement("colorImgUrl",$product['colorImgUrl']);
+				$weightXml = $xml->createElement("weight",$product['weight']);
+				$weightUnit = $xml->createElement("weightUnit",$product['weightUnit']);
+				$packFormXml = $xml->createElement("packForm",$packForm);
+				$weightInKgXml = $xml->createElement("weightInKg",$product['weight']);
+				$imageUrlXml = $xml->createElement("imageUrl",$imageUrl);
+				$urlXml = $xml->createElement("url",$url);
+				$descriptionXml = $xml->createElement("description",$description);
+				$sellerXml = $xml->createElement("seller",$company);
+				$sellerWebXml = $xml->createElement("sellerWeb",$companyWeb);
+
+				//将节点挂到相应父节点
+				$productXml->appendChild($idXml);
+				$root->appendChild($productXml);
+				$productXml->appendChild($materialTypeXml);
+				$productXml->appendChild($matherialSubTypeXml);
+				$productXml->appendChild($brandXml);
+				$productXml->appendChild($producerXml);
+				$productXml->appendChild($ingredientXml);
+				$productXml->appendChild($priceXml);
+				$productXml->appendChild($priceUnit);
+				$productXml->appendChild($diameterXml);
+				$productXml->appendChild($diameterUnit);
+				$productXml->appendChild($colorXml);
+				$productXml->appendChild($colorImgUrlXml);
+				$productXml->appendChild($weightXml);
+				$productXml->appendChild($weightUnit);
+				$productXml->appendChild($packFormXml);
+				$productXml->appendChild($weightInKgXml);
+				$productXml->appendChild($imageUrlXml);
+				$productXml->appendChild($urlXml);
+				$productXml->appendChild($descriptionXml);
+				$productXml->appendChild($sellerXml);
+				$productXml->appendChild($sellerWebXml);
 
 				$index++;
 			}
@@ -144,18 +206,10 @@
     }
     
 	$filename = 'xml/'.date('YmdHi', time()).'-'.$company.'.xml';
-    $xml->asXml($filename);
-	
-	
-	// $dom = new DOMDocument('1.0');
-	// $dom-> preserveWhiteSpace = false;
-	// $dom-> formatOutput = true;
-	// $dom-> loadXML();
-	//Echo XML - remove this and following line if echo not desired
-	// echo $dom-> saveXML();
-	//Save XML to file - remove this and following line if save not desired
-	// $dom-> save($filename);
-
+	//将标签添加到XML文件中
+	$xml->appendChild($root);
+	//生成XML
+	$xml->save($filename);
 
 	/**
 	 * 从类型字符串中提取类型和品牌
