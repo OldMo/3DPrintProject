@@ -12,15 +12,15 @@
 	$urls = getPageUrls($startUrl);
 	$index = 1;
 	foreach($urls as $url){
-		echo '正在获取第'.$index.'页的信息.............<br/>';
-		$brandsArray = getProductUrls($url,$brandsArray,$keyword,$withoutFilementKeywordXMLName);
+			echo '正在获取第'.$index.'页的信息.............<br/>';
+			$brandsArray = getProductUrls($url,$brandsArray,$keyword,$withoutFilementKeywordXMLName);
 		
 		// foreach($brandsArray as $bra)
 			// echo $bra.'<br/>';
 		
-		if($index > 3)
-			break;
-			
+		// if($index > 3)
+			// break;
+
 		$index++;
 		
 		
@@ -70,12 +70,14 @@
 		$html = file_get_html($pageUrl);
 		$ulsdiv = $html->find('.s-result-item'); //获取ul
 
-		$productUrls = array();
+		// $productUrls = array();
 		$index = 0;
 		foreach($ulsdiv as $li){
 			$title = $li->find('h2',0)->plaintext;
 			$productUrl = $li->find('a',0)->href;
 			$brand = trim($li->find('.a-color-secondary',1)->plaintext);
+			
+			echo $brand.'-----'.$title.'<br/>';
 			
 			//存在关键词则认为是打印材料,添加到对应品牌xml文件，否则添加到丢弃文件
 			if(containsKeyword($title,$keyword)){
@@ -93,9 +95,7 @@
 					createXML($withoutFilementKeywordXMLName,$brand,$title,$productUrl);
 				}
 			}
-			
-			echo $brand.'-----'.$title.'<br/>';
-			$productUrls[$index] = $productUrl;
+			// $productUrls[$index] = $productUrl;
 			
 			sleep(1);
 			ob_flush();//输出缓冲区中的内容
@@ -109,6 +109,14 @@
 	*	创建xml文件
 	*/
 	function createXML($xmlName,$brand,$title,$url){
+		//处理文件名
+		$xmlName = strtolower(strReplarceToNull($xmlName));
+		
+		//处理产品名字符乱码
+		$brand = strReplaceToEntity($brand);
+		$title = strReplaceToEntity($title);
+		
+		
 		$xml=new DOMDocument('1.0','utf-8');
 		$xml->formatOutput = true;
 		$root = $xml->createElement("ProductInfo");
@@ -137,6 +145,13 @@
 	*添加信息到xml文件
 	*/
 	function addToXML($xmlName,$brand,$title,$url){
+		//处理文件名
+		$xmlName = strtolower(strReplarceToNull($xmlName));
+		
+		//处理产品名字符乱码
+		$brand = strReplaceToEntity($brand);
+		$title = strReplaceToEntity($title);
+		
 		$xml = new DOMDocument('1.0','utf-8');
 		$xml->formatOutput = true;
 		$filename = 'xml/'.$xmlName.'.xml';
@@ -161,7 +176,7 @@
 			$xml->save($filename);
 			
 		}else {
-			echo 'xml file loaded error!';
+			echo 'xml 文件 '.$xmlName.'更新错误! <br/>';
 		}
 	}
 	
@@ -173,6 +188,21 @@
 			return true;
 		return false;
 		
+	}
+	
+	function strReplaceToEntity($str){
+		$str = str_replace('©', '&copy;', $str);
+		$str = str_replace('®', '&reg;', $str);
+		$str = str_replace('±', '&plusmn;', $str);
+		$str = str_replace('&', '&amp;', $str);
+		return $str;
+	}
+	
+	function strReplarceToNull($str){
+		// $str = str_replace('&nbsp;','',$str);
+		$str = str_replace('©', '', $str);
+		$str = str_replace('®', '', $str);
+		return $str;
 	}
 
 ?>
